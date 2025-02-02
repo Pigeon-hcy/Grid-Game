@@ -5,7 +5,8 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     [SerializeField] private GameObject HighLightCover;
-
+    public bool unitOnTile;
+    
     private void OnMouseOver()
     {
         HighLightCover.SetActive(true);
