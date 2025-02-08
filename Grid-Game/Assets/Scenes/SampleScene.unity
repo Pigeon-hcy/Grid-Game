@@ -420,8 +420,14 @@ MonoBehaviour:
   tile1: {fileID: 371780446399331087, guid: d446a265c81b5524b9f34c5c5542e07e, type: 3}
   tile2: {fileID: 371780446399331087, guid: e8143ff11f46329409ffdebb3fa496e4, type: 3}
   MainCamera: {fileID: 519420031}
-  Unit:
-  - {fileID: 13474483811428267, guid: 6d85c7ce107e95e42a96dde5c3fb4778, type: 3}
+  Unit: {fileID: 13474483811428267, guid: 6d85c7ce107e95e42a96dde5c3fb4778, type: 3}
+  PlayerUnit:
+  - {fileID: 11400000, guid: e2df933c10fac444ebbb2ef40aa94cb5, type: 2}
+  - {fileID: 11400000, guid: 7ed2205949239594d83082b0d4d030d8, type: 2}
+  - {fileID: 11400000, guid: af78140246c55d840bb29cee27da0dfa, type: 2}
+  EnemyUnit:
+  - {fileID: 11400000, guid: e2df933c10fac444ebbb2ef40aa94cb5, type: 2}
+  - {fileID: 11400000, guid: 7ed2205949239594d83082b0d4d030d8, type: 2}
 --- !u!4 &1759195100
 Transform:
   m_ObjectHideFlags: 0

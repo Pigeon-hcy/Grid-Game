@@ -7,44 +7,31 @@ public class Unit : MonoBehaviour
     public bool selected;
     public Tile locateTile;
     public GameManager gameManager;
-    public enum UnitType { 
-        warrior,
-        archer,
-        wizard,
-        rider,
-        gunner
-    }
+ 
+    public NewUnit newUnit;
+    int movement;
+    int health;
 
-    public UnitType type = UnitType.warrior;
-    public int movement;
-
+    public bool isEnemy;
     private void Awake()
     {
-        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        
+    }
 
-        switch (type)
-        {
-            case UnitType.warrior:
-                movement = 4; 
-                break;
-            case UnitType.archer:
-                movement = 3;
-                break;
-            case UnitType.wizard:
-                movement = 2;
-                break;
-            case UnitType.rider:
-                movement = 5;
-                break;
-            case UnitType.gunner:
-                movement = 2;
-                break;
-        }
+    private void Start()
+    {
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        if(isEnemy == false)
+            GetComponent<SpriteRenderer>().sprite = newUnit.Sprite;
+        else
+            GetComponent<SpriteRenderer>().sprite = newUnit.EnemySprite;
+        movement = newUnit.Movement;
+        health = newUnit.Health;
     }
 
     public void MoveTo(Tile target)
     {
-        if (target.unitOnTile == false)
+        if (target.unitOnTile == false && isEnemy == false)
         {
             locateTile.unitOnTile = false;
             locateTile = null;

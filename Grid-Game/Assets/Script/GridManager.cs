@@ -16,8 +16,9 @@ public class GridManager : MonoBehaviour
     [SerializeField] private GameObject tile1;
     [SerializeField] private GameObject tile2;
     [SerializeField] private Camera MainCamera;
-    public GameObject[] Unit;
-
+    [SerializeField] private GameObject Unit;
+    public NewUnit[] PlayerUnit;
+    public NewUnit[] EnemyUnit;
     public Tile[,] tiles;
 
     private void Start()
@@ -26,18 +27,32 @@ public class GridManager : MonoBehaviour
         GenerateGrid();
         SetCamera();
         placeUnit();
+        placeEnemy();
     }
 
     void placeUnit()
     {
-        for (int i = 0; i < Unit.Length ; i++)
+        for (int i = 0; i < PlayerUnit.Length ; i++)
         {
             //0,0 is for debug only
-            GameObject unit = Instantiate(Unit[i], new Vector2(0, 0),quaternion.identity);
-            unit.GetComponent<Unit>().locateTile = tiles[0,0];
+            GameObject unit = Instantiate(Unit, new Vector2(0, i),quaternion.identity);
+            unit.GetComponent<Unit>().newUnit = PlayerUnit[i];
+            unit.GetComponent<Unit>().locateTile = tiles[0,i];
         }
     }
 
+
+    void placeEnemy()
+    {
+        for (int i = 0; i < EnemyUnit.Length; i++)
+        {
+            //0,0 is for debug only
+            GameObject unit = Instantiate(Unit, new Vector2(_width - 1, i), quaternion.identity);
+            unit.GetComponent<Unit>().newUnit = EnemyUnit[i];
+            unit.GetComponent<Unit>().locateTile = tiles[_width - 1, i];
+            unit.GetComponent<Unit>().isEnemy = true;
+        }
+    }
 
     void GenerateGrid()
     {
