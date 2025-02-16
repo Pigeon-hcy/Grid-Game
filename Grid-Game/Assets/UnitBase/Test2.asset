@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 0
   Movement: 1
+  AttackRange: 2
   Sprite: {fileID: 21300000, guid: f1dbc747edd45594f8ea08cc96ee4ffd, type: 3}
   EnemySprite: {fileID: 21300000, guid: b7ae517900c520247aa158304980f73d, type: 3}

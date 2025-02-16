@@ -101,8 +101,9 @@ MonoBehaviour:
   selected: 0
   locateTile: {fileID: 0}
   gameManager: {fileID: 0}
-  type: 0
-  movement: 0
+  newUnit: {fileID: 0}
+  isEnemy: 0
+  timeToMove: 0.3
 --- !u!61 &1783263188329111973
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -146,5 +147,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.64, y: 0.64}
+  m_Size: {x: 0.57, y: 0.62885994}
   m_EdgeRadius: 0

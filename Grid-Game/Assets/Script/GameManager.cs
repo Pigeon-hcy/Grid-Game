@@ -2,23 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using System.Linq;
 public class GameManager : MonoBehaviour
 {
     public Unit selectedUnit;
-
+    public GridManager gridManager;
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
+            RaycastHit2D[] hit = Physics2D.RaycastAll(mousePosition, Vector2.zero);
             Debug.Log("Ray Sent");
 
-            if (hit.collider != null)
+            if (hit.Length > 0)
             {
-                Debug.Log("Hit object: " + hit.collider.gameObject.name);
-                Tile targetTile = hit.collider.GetComponent<Tile>();
+                RaycastHit2D closestHit = hit.OrderBy(h => Vector2.Distance(h.point, mousePosition)).First();
+                Debug.Log("Hit object: " + closestHit.collider.gameObject.name);
+                Tile targetTile = closestHit.collider.GetComponent<Tile>();
                 if (targetTile != null && selectedUnit != null)
                 {
                     
@@ -27,10 +28,11 @@ public class GameManager : MonoBehaviour
                     return;
                 }
 
-                Unit clickedUnit = hit.collider.GetComponent<Unit>();
+                Unit clickedUnit = closestHit.collider.GetComponent<Unit>();
                 if (clickedUnit != null)
                 {
                     selectedUnit = clickedUnit;
+                    gridManager.ShowTheMovingRange(selectedUnit);
                     Debug.Log("Unit Selected: " + selectedUnit.name);
                 }
             }

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d450246f69560443b9574b7507b6990, type: 3}
   m_Name: Test1
   m_EditorClassIdentifier: 
-  Health: 0
-  Movement: 1
+  Health: 8
+  Movement: 2
+  AttackRange: 2
   Sprite: {fileID: 21300000, guid: 74c3d0613765c5a42b9fa6fae11776a5, type: 3}
   EnemySprite: {fileID: 21300000, guid: b7ae517900c520247aa158304980f73d, type: 3}

@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 0
   Movement: 1
+  AttackRange: 2
   Sprite: {fileID: 0}
+  EnemySprite: {fileID: 0}

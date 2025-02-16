@@ -13,6 +13,9 @@ public class NewUnit : ScriptableObject
     [Tooltip("Movement")]
     public int Movement;
 
+    [Tooltip("AttackRange")]
+    public int AttackRange;
+
     [Tooltip("Sprite")]
     public Sprite Sprite;
     public Sprite EnemySprite;
