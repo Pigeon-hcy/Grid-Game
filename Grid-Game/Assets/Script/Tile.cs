@@ -9,11 +9,37 @@ public class Tile : MonoBehaviour
     public int x;
     public int y;
     public int tileType = 0;
+    public GridManager gridManager;
+    public bool available;
     public void highLight()
     {
         HighLightCover.SetActive(true);
+        available = true;
     }
-    
+
+    //private void OnMouseUp()
+    //{
+    //    if (gridManager.inMovingMode)
+    //    {
+    //        //Confirm movement
+    //        if (HighLightCover == true)
+    //        {
+    //            gridManager.ConfirmMovement(this);
+    //        }
+    //        else
+    //        {
+    //            gridManager.ConfirmMovement();
+    //        }
+
+    //    }
+    //}
+
+    public void ResetGrid()
+    {
+        HighLightCover.SetActive(false);
+        available = false;
+    }
+
     private void OnMouseOver()
     {
         HighLightCover.SetActive(true);
@@ -21,6 +47,9 @@ public class Tile : MonoBehaviour
 
     private void OnMouseExit()
     {
-        HighLightCover.SetActive(false);
+        if (available == false)
+        {
+            HighLightCover.SetActive(false);
+        }
     }
 }

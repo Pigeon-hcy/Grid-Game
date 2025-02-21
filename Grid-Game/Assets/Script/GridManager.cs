@@ -33,6 +33,8 @@ public class GridManager : MonoBehaviour
     public Tile[,] tiles;
     [HideInInspector]
     public Tile currentAvailableMoveTarget;
+    public GameManager gameManager;
+    public bool inMovingMode;
     private void Start()
     {
         tiles = new Tile[width, hieght];
@@ -275,6 +277,31 @@ public class GridManager : MonoBehaviour
         return distY;
     }
 
+    //get the start tareget location
+    //public void SetTargetLocation(Tile targetLocation)
+    //{
+    //    CalculatePathfinding(gameManager.selectedUnit.locateTile, targetLocation, gameManager.selectedUnit.movement);
+    //}
+
+    //public void StartMovingMode()
+    //{
+    //    inMovingMode = true;
+    //    List<Tile> reachableGrids = CalculateReachableGrids(gameManager.selectedUnit.locateTile, gameManager.selectedUnit.movement);
+    //    foreach (Tile Tile in reachableGrids)
+    //    {
+    //        Tile.highLight();
+    //    }
+    //}
+
+    //public void StopMovingMode()
+    //{
+    //    inMovingMode = false;
+    //    foreach (Tile tiles in tiles)
+    //    {
+    //        tiles.ResetGrid();
+    //    }
+    //}
+
 
     public void ShowTheMovingRange(Unit character)
     {
@@ -330,11 +357,35 @@ public class GridManager : MonoBehaviour
                 cost = 1;
                 break;
             case 1:
-                //Rock, no way to pass. Worked for blocked nodes
+                //wall, no way to pass. Worked for blocked nodes
                 cost = 99;
                 break;
         }
 
         return cost;
     }
+
+
+    public void ResetTile()
+    {
+        foreach (Tile tiles in tiles)
+        {
+            tiles.ResetGrid();
+        }
+    }
+
+    //public void ConfirmMovement(Tile clickedTargetGrid = null)
+    //{
+    //    if (clickedTargetGrid != null)
+    //    {
+    //        gameManager.selectedUnit.MoveTo(clickedTargetGrid);
+    //    }
+    //    else if (currentAvailableMoveTarget != null)
+    //    {
+    //        gameManager.selectedUnit.locateTile = currentAvailableMoveTarget;
+    //    }
+
+
+    //    StopMovingMode();
+    //}
 }

@@ -18,10 +18,9 @@ public class Unit : MonoBehaviour
     bool isMoving;
     [SerializeField]
     float timeToMove;
-    private void Awake()
-    {
-        
-    }
+
+    [SerializeField]
+    GridManager gridManager;
 
     private void Start()
     {
@@ -33,26 +32,29 @@ public class Unit : MonoBehaviour
         movement = newUnit.Movement;
         health = newUnit.Health;
         attackRange = newUnit.AttackRange;
+        gridManager = GameObject.FindGameObjectWithTag("GridManager").GetComponent<GridManager>();
     }
 
     public void MoveTo(Tile target)
     {
-        if (target.unitOnTile == false && isEnemy == false && isMoving == false)
+        if (target.unitOnTile == false && target.available == true && isEnemy == false && isMoving == false)
         {
             locateTile.unitOnTile = false;
             locateTile = target;
             //move the unit
             target.unitOnTile = true;
             StartCoroutine(MovePlayer(target.transform.position));
+            gridManager.ResetTile();
             Debug.Log("can move");
         }
         else
         {
+            gridManager.ResetTile();
             Debug.Log("can't move");
             return;
         }
 
-        
+
     }
 
 

@@ -100,6 +100,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HighLightCover: {fileID: 3227971109761696764}
+  unitOnTile: 0
+  x: 0
+  y: 0
+  tileType: 0
+  gridManager: {fileID: 0}
+  available: 0
 --- !u!61 &7115611794511469670
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -219,7 +225,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.1764706}
+  m_Color: {r: 0.28465402, g: 1, b: 0, a: 0.1764706}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
