@@ -6,7 +6,9 @@ using System.Linq;
 public class GameManager : MonoBehaviour
 {
     public Unit selectedUnit;
+    public Dice selectedDice;
     public GridManager gridManager;
+    public TurnManager turnManager;
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -19,21 +21,37 @@ public class GameManager : MonoBehaviour
             {
                 RaycastHit2D closestHit = hit.OrderBy(h => Vector2.Distance(h.point, mousePosition)).First();
                 Debug.Log("Hit object: " + closestHit.collider.gameObject.name);
+                
                 Tile targetTile = closestHit.collider.GetComponent<Tile>();
                 if (targetTile != null && selectedUnit != null)
                 {
-                    
-                    selectedUnit.MoveTo(targetTile);
-                    selectedUnit = null;
-                    return;
+                    //excute the current behave
+                    if (turnManager.currentBehave == "Move")
+                    {
+                        selectedUnit.MoveTo(targetTile);
+                        selectedUnit = null;
+                        turnManager.excuteTheBehave();
+                        return;
+                    }
                 }
 
                 Unit clickedUnit = closestHit.collider.GetComponent<Unit>();
                 if (clickedUnit != null)
                 {
-                    selectedUnit = clickedUnit;
-                    gridManager.ShowTheMovingRange(selectedUnit);
-                    Debug.Log("Unit Selected: " + selectedUnit.name);
+
+                    //preview and select a unit
+                    if (turnManager.currentBehave == "Move")
+                    {
+                        selectedUnit = clickedUnit;
+                        gridManager.ShowTheMovingRange(selectedUnit);
+                        Debug.Log("Unit Selected: " + selectedUnit.name);
+                    }
+                }
+
+                Dice clickedDice = closestHit.collider.GetComponent<Dice>();
+                if (clickedDice != null)
+                {
+                    selectedDice = clickedDice;
                 }
             }
         }
