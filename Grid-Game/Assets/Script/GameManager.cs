@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
                     {
                         selectedUnit.MoveTo(targetTile);
                         selectedUnit = null;
-                        turnManager.excuteTheBehave();
+                        //turnManager.excuteTheBehave();
                         return;
                     }
                 }

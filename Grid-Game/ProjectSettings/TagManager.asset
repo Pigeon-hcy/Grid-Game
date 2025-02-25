@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GameManager
   - GridManager
+  - TurnManager
   layers:
   - Default
   - TransparentFX

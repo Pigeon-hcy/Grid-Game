@@ -21,9 +21,12 @@ public class Unit : MonoBehaviour
 
     [SerializeField]
     GridManager gridManager;
+    [SerializeField]
+    TurnManager turnManager;
 
     private void Start()
     {
+        turnManager = GameObject.FindGameObjectWithTag("TurnManager").GetComponent<TurnManager>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         if(isEnemy == false)
             GetComponent<SpriteRenderer>().sprite = newUnit.Sprite;
@@ -46,6 +49,7 @@ public class Unit : MonoBehaviour
             StartCoroutine(MovePlayer(target.transform.position));
             gridManager.ResetTile();
             Debug.Log("can move");
+            turnManager.excuteTheBehave();
         }
         else
         {
