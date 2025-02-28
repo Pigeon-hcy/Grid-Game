@@ -24,9 +24,18 @@ public class TurnManager : MonoBehaviour
         
     };
 
+    [SerializeField]
+    Dice[] EnemyDice =
+    {
+
+    };
+
     public string currentBehave;
     [SerializeField]
-    bool playerIsFinish;
+    static bool playerIsFinish;
+
+    [SerializeField]
+    public Unit[] EnemyList = new Unit[5];
     // Start is called before the first frame update
     void Start()
     {
@@ -55,6 +64,7 @@ public class TurnManager : MonoBehaviour
                     ////////////////////////////////////////
                     Debug.Log("PlayerRollDice");
                     PlayerRollDice();
+                    EnemyRollDice();
                     Debug.Log(Playerdices);
                     yield return new WaitForSeconds(1f);
                     /////////////////////////////////////
@@ -64,10 +74,10 @@ public class TurnManager : MonoBehaviour
                 case gameStage.playerTurn:
                     Debug.Log("Player turn start");
                     while (turnStage == gameStage.playerTurn)
-                    { 
+                    {
                         playerMove();
                         if (playerIsFinish)
-                        { 
+                        {
                             turnStage = gameStage.enemyTurn;
                         }
 
@@ -77,10 +87,25 @@ public class TurnManager : MonoBehaviour
                     //turnStage = gameStage.enemyTurn;
                     break;
                 case gameStage.enemyTurn:
+
+
+                    enemyThinkMove();
+                    if (passToPlayerOrEndTheTurn() == true)
+                    {
+                        turnStage = gameStage.turnEnd;
+                    }
+                    else
+                    {
+                        turnStage = gameStage.playerTurn;
+                    }
+
                     yield return null;
                     break;
                 case gameStage.turnEnd:
-                    yield return null;  
+                    
+                    restAllDice();
+                    turnStage = gameStage.turnStart;
+                    yield return null;
                     break;
 
             }
@@ -96,6 +121,13 @@ public class TurnManager : MonoBehaviour
         }
     }
 
+    private void EnemyRollDice()
+    {
+        for (int i = 0; i < EnemyDice.Length; i++)
+        {
+            EnemyDice[i].rollADice();
+        }
+    }
 
     private bool checkEndTurn()
     {
@@ -146,8 +178,100 @@ public class TurnManager : MonoBehaviour
         currentBehave = null;
         gameManager.selectedDice.isUsed = true;
         playerIsFinish = true;
+        turnStage = gameStage.enemyTurn;
     }
 
+    private void enemyThinkMove()
+    {
+        
+        for (int i = 0; i < EnemyList.Length; i++)
+        {
+            if (EnemyList[i] != null)
+            {
+                if (EnemyList[i].CheckForPlayer(EnemyList[i].attackRange) == true)
+                {
+                    for (int j = 0; j < EnemyDice.Length; j++)
+                    {
+                        if (EnemyDice[j].behave == "Attack" && EnemyDice[j].isUsed == false)// have attack relate dice
+                        {
+                            Debug.Log("Enemy try to attack");
+                            EnemyDice[j].isUsed = true;
+                            return;
+                        }
+                    }
+                }
 
+                //////////////////////////////////Move/////////////////////////////////////
+                else if (EnemyList[i].CheckForPlayer(EnemyList[i].attackRange) == false)
+                {
+                    for (int j = 0; j < EnemyDice.Length; j++)
+                    {
+                        if (EnemyDice[j].behave == "Move" && EnemyDice[j].isUsed == false)// have attack relate dice
+                        {
+                            Debug.Log("Enemy try to move");
+                            EnemyDice[j].isUsed = true;
+                            return;
+                        }
+                    }
 
+                    //////////////////////////////SKIP//////////////////////////////////////////
+                    for (int j = 0; j < EnemyDice.Length; j++)
+                    {
+                        if (EnemyDice[j].behave == "Empty" && EnemyDice[j].isUsed == false)// have attack relate dice
+                        {
+                            Debug.Log("skip");
+                            EnemyDice[j].isUsed = true;
+                            return;
+                        }
+                    }
+
+                    for (int j = 0; j < EnemyDice.Length; j++)
+                    {
+                        if (EnemyDice[j].isUsed == false)// have attack relate dice
+                        {
+                            Debug.Log("skip");
+                            EnemyDice[j].isUsed = true;
+                            return;
+                        }
+                    }
+
+                }
+            }
+
+        }
+    }
+
+    private void restAllDice()
+    {
+        for (int i = 0; i < Playerdices.Length; i++)
+        {
+            Playerdices[i].isUsed = false;
+        }
+
+        for (int i = 0; i < EnemyDice.Length; i++)
+        {
+            EnemyDice[i].isUsed= false;
+        }
+    }
+
+    private bool passToPlayerOrEndTheTurn()
+    {
+        for (int i = 0; i < Playerdices.Length; i++)
+        {
+            if (!Playerdices[i].isUsed)
+            { 
+                return false;
+            }
+        }
+
+        for (int i = 0; i < EnemyDice.Length; i++)
+        {
+            if (!EnemyDice[i].isUsed)
+            {
+                return false;
+            }
+        }
+
+        return true;    
+    }
 }

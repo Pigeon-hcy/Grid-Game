@@ -24,6 +24,8 @@ public class Dice : MonoBehaviour
     public bool isrolling;
     public bool isUsed;
     public GameObject Cover;
+    [SerializeField]
+    public bool isEnemy;
     // Start is called before the first frame update
     void Start()
     {

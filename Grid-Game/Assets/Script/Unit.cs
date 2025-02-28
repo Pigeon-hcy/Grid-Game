@@ -10,8 +10,7 @@ public class Unit : MonoBehaviour
  
     public NewUnit newUnit;
     public int movement;
-    int health;
-    int attackRange;
+
     public bool isEnemy;
 
     [Header("Moving")]
@@ -24,6 +23,13 @@ public class Unit : MonoBehaviour
     [SerializeField]
     TurnManager turnManager;
 
+    [Header("Combat")]
+    [SerializeField]
+    int health;
+    public int attackRange;
+    [SerializeField]
+    int attackDamage;
+
     private void Start()
     {
         turnManager = GameObject.FindGameObjectWithTag("TurnManager").GetComponent<TurnManager>();
@@ -35,6 +41,7 @@ public class Unit : MonoBehaviour
         movement = newUnit.Movement;
         health = newUnit.Health;
         attackRange = newUnit.AttackRange;
+        attackDamage = newUnit.Attack;
         gridManager = GameObject.FindGameObjectWithTag("GridManager").GetComponent<GridManager>();
     }
 
@@ -57,12 +64,23 @@ public class Unit : MonoBehaviour
             Debug.Log("can't move");
             return;
         }
+    }
 
+    public void Attack(Unit target)
+    {
+        target.health -= attackDamage;
+        turnManager.excuteTheBehave();
+
+        if (target.health <= 0)
+        { 
+            Destroy(target.gameObject);
+        }
 
     }
 
 
-    private void CheckForEnemies(int attackRange)
+
+    public bool CheckForEnemies(int attackRange)
     {
         List<Vector3> attackOffsets = new List<Vector3>();
 
@@ -88,19 +106,59 @@ public class Unit : MonoBehaviour
             if (hit != null)
             {
                 Unit nearbyUnit = hit.GetComponent<Unit>();
-                if (nearbyUnit != null && nearbyUnit.isEnemy) // Found an enemy nearby
+                if (nearbyUnit != null && nearbyUnit.isEnemy /*&& turnManager.currentBehave == "Attack"*/) // Found an enemy nearby
                 {
                     Debug.Log("Can attack!");
-                    return;
+                    return true;
                 }
             }
         }
+        return false;
     }
 
     //private void OnMouseDown()
     //{
     //    gameManager.selectedUnit = this;
     //}
+
+    public bool CheckForPlayer(int attackRange)
+    {
+        List<Vector3> attackOffsets = new List<Vector3>();
+
+        for (int x = -attackRange; x <= attackRange; x++)
+        {
+            for (int y = -attackRange; y <= attackRange; y++)
+            {
+                if (Mathf.Abs(x) + Mathf.Abs(y) <= attackRange && !(x == 0 && y == 0))
+                {
+                    attackOffsets.Add(new Vector3(x, y, 0));
+                }
+            }
+        }
+        Vector3[] attackOffsetsArray = attackOffsets.ToArray();
+
+        foreach (Vector3 offset in attackOffsets)
+        {
+            Vector3 checkPos = transform.position + offset;
+            //Collider2D hit = Physics2D.OverlapCircle(checkPos, 0.1f); // Check for unit presence
+            Vector2 boxSize = new Vector2(0.9f, 0.9f); // Adjust based on the true tile size, for now just assume grid 1 *1
+            Collider2D hit = Physics2D.OverlapBox(checkPos, boxSize, 0f);
+
+            if (hit != null)
+            {
+                Unit nearbyUnit = hit.GetComponent<Unit>();
+                if (nearbyUnit != null && !nearbyUnit.isEnemy  /*&& turnManager.currentBehave == "Attack"*/) // Found an enemy nearby
+                {
+                    Debug.Log("Can attack!");
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+
     private IEnumerator MovePlayer(Vector3 targetPos)
     {
         isMoving = true;
@@ -117,7 +175,7 @@ public class Unit : MonoBehaviour
         }
 
         transform.position = targetPos;
-        CheckForEnemies(attackRange);
+        //CheckForEnemies(attackRange);
         isMoving = false;
     }
 

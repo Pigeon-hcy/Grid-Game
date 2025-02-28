@@ -35,6 +35,7 @@ public class GridManager : MonoBehaviour
     public Tile currentAvailableMoveTarget;
     public GameManager gameManager;
     public bool inMovingMode;
+    public TurnManager turnManager;
     private void Start()
     {
         tiles = new Tile[width, hieght];
@@ -52,6 +53,7 @@ public class GridManager : MonoBehaviour
             GameObject unit = Instantiate(Unit, new Vector2(0, i),quaternion.identity);
             unit.GetComponent<Unit>().newUnit = PlayerUnit[i];
             unit.GetComponent<Unit>().locateTile = tiles[0,i];
+            
         }
     }
 
@@ -65,6 +67,7 @@ public class GridManager : MonoBehaviour
             unit.GetComponent<Unit>().newUnit = EnemyUnit[i];
             unit.GetComponent<Unit>().locateTile = tiles[_width - 1, i];
             unit.GetComponent<Unit>().isEnemy = true;
+            turnManager.EnemyList[i] = unit.GetComponent<Unit>();
         }
     }
 

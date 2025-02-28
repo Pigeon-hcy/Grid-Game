@@ -15,10 +15,12 @@ public class NewUnit : ScriptableObject
 
     [Tooltip("AttackRange")]
     public int AttackRange;
+    public int Attack;
 
     [Tooltip("Sprite")]
     public Sprite Sprite;
     public Sprite EnemySprite;
+
 }
 
 
