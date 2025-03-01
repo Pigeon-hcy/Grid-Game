@@ -54,6 +54,7 @@ public class GridManager : MonoBehaviour
             unit.GetComponent<Unit>().newUnit = PlayerUnit[i];
             unit.GetComponent<Unit>().locateTile = tiles[0,i];
             
+            turnManager.PlayerList.Add(unit.GetComponent<Unit>());
         }
     }
 
@@ -68,6 +69,7 @@ public class GridManager : MonoBehaviour
             unit.GetComponent<Unit>().locateTile = tiles[_width - 1, i];
             unit.GetComponent<Unit>().isEnemy = true;
             turnManager.EnemyList[i] = unit.GetComponent<Unit>();
+            
         }
     }
 
@@ -194,7 +196,7 @@ public class GridManager : MonoBehaviour
 
 
     //Pathing finding using A*
-    public void CalculatePathfinding(Tile startLocation, Tile targetLocation, int moveability)
+    public List<AStarNode> CalculatePathfinding(Tile startLocation, Tile targetLocation, int moveability)
     {
         // Create the open list containing the start node and closed set
         List<AStarNode> openList = new List<AStarNode>();
@@ -226,8 +228,8 @@ public class GridManager : MonoBehaviour
             // Check if the current node is the target location, if so, retrace the path
             if (currentNode.Tile == targetLocation)
             {
-                //RetracePath(startNode, currentNode, moveability);
-                return;
+                return RetracePath(startNode, currentNode, moveability);
+                
             }
 
             // Explore neighbors of the current node
@@ -264,6 +266,8 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
+
+        return null;
     }
 
     //get the manhadon distance of 2 tiles
@@ -281,29 +285,29 @@ public class GridManager : MonoBehaviour
     }
 
     //get the start tareget location
-    //public void SetTargetLocation(Tile targetLocation)
-    //{
-    //    CalculatePathfinding(gameManager.selectedUnit.locateTile, targetLocation, gameManager.selectedUnit.movement);
-    //}
+    public void SetTargetLocation(Tile targetLocation)
+    {
+        CalculatePathfinding(gameManager.selectedUnit.locateTile, targetLocation, gameManager.selectedUnit.movement);
+    }
 
-    //public void StartMovingMode()
-    //{
-    //    inMovingMode = true;
-    //    List<Tile> reachableGrids = CalculateReachableGrids(gameManager.selectedUnit.locateTile, gameManager.selectedUnit.movement);
-    //    foreach (Tile Tile in reachableGrids)
-    //    {
-    //        Tile.highLight();
-    //    }
-    //}
+    public void StartMovingMode()
+    {
+        inMovingMode = true;
+        List<Tile> reachableGrids = CalculateReachableGrids(gameManager.selectedUnit.locateTile, gameManager.selectedUnit.movement);
+        foreach (Tile Tile in reachableGrids)
+        {
+            Tile.highLight();
+        }
+    }
 
-    //public void StopMovingMode()
-    //{
-    //    inMovingMode = false;
-    //    foreach (Tile tiles in tiles)
-    //    {
-    //        tiles.ResetGrid();
-    //    }
-    //}
+    public void StopMovingMode()
+    {
+        inMovingMode = false;
+        foreach (Tile tiles in tiles)
+        {
+            tiles.ResetGrid();
+        }
+    }
 
 
     public void ShowTheMovingRange(Unit character)
@@ -316,39 +320,40 @@ public class GridManager : MonoBehaviour
     }
 
     //Show the where is the avaliable block
-    //private void RetracePath(AStarNode startNode, AStarNode endNode, int actionPoint)
-    //{
-    //    // Create an empty list to store the path
-    //    List<Tile> path = new List<Tile>();
-    //    AStarNode currentNode = endNode;
-    //    // Follow parent pointers from the end node to the start node, adding each node to the path
-    //    while (currentNode != startNode)
-    //    {
-    //        path.Add(currentNode.Tile);
-    //        currentNode = currentNode.Parent;
-    //    }
-    //    // Reverse the path so it starts from the starting location
-    //    path.Reverse();
-    //    // Hide the pathfinding visualization for all grid units
-    //    foreach (Tile gridUnit in gridUnitList)
-    //    {
-    //        gridUnit.HidePathfinding();
-    //    }
-    //    // Display the path and calculate its cost
-    //    int pathCost = 0;
-    //    foreach (Tile gridUnit in path)
-    //    {
-    //        pathCost += 1;
-    //        // If the path cost exceeds the action points available, stop displaying the path
-    //        if (pathCost > actionPoint)
-    //        {
-    //            break;
-    //        }
-    //        // Update the current available move target and display the pathfinding visualization with the path cost
-    //        currentAvailableMoveTarget = gridUnit;
-    //        gridUnit.DisplayPathfinding(pathCost.ToString());
-    //    }
-    //}
+    private List<AStarNode> RetracePath(AStarNode startNode, AStarNode endNode, int actionPoint)
+    {
+        // Create an empty list to store the path
+        List<AStarNode> path = new List<AStarNode>();
+        AStarNode currentNode = endNode;
+        // Follow parent pointers from the end node to the start node, adding each node to the path
+        while (currentNode != startNode)
+        {
+            path.Add(currentNode);
+            currentNode = currentNode.Parent;
+        }
+        // Reverse the path so it starts from the starting location
+        path.Reverse();
+        return path;
+        // Hide the pathfinding visualization for all grid units
+        //foreach (Tile gridUnit in gridUnitList)
+        //{
+        //    gridUnit.HidePathfinding();
+        //}
+        // Display the path and calculate its cost
+        //int pathCost = 0;
+        //foreach (Tile gridUnit in path)
+        //{
+        //    pathCost += 1;
+        //    // If the path cost exceeds the action points available, stop displaying the path
+        //    if (pathCost > actionPoint)
+        //    {
+        //        break;
+        //    }
+        //    // Update the current available move target and display the pathfinding visualization with the path cost
+        //    currentAvailableMoveTarget = gridUnit;
+        //    //gridUnit.DisplayPathfinding(pathCost.ToString());
+        //}
+    }
 
     int GetCost(int tileType)
     {
@@ -363,6 +368,7 @@ public class GridManager : MonoBehaviour
                 //wall, no way to pass. Worked for blocked nodes
                 cost = 99;
                 break;
+
         }
 
         return cost;
@@ -377,18 +383,24 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    //public void ConfirmMovement(Tile clickedTargetGrid = null)
-    //{
-    //    if (clickedTargetGrid != null)
-    //    {
-    //        gameManager.selectedUnit.MoveTo(clickedTargetGrid);
-    //    }
-    //    else if (currentAvailableMoveTarget != null)
-    //    {
-    //        gameManager.selectedUnit.locateTile = currentAvailableMoveTarget;
-    //    }
+    public void ConfirmMovement(Tile clickedTargetGrid = null)
+    {
+        if (clickedTargetGrid != null)
+        {
+            gameManager.selectedUnit.MoveTo(clickedTargetGrid);
+        }
+        else if (currentAvailableMoveTarget != null)
+        {
+            gameManager.selectedUnit.locateTile = currentAvailableMoveTarget;
+        }
 
 
-    //    StopMovingMode();
-    //}
+        StopMovingMode();
+    }
+
+
+    public void convertTileIntoAStar()
+    { 
+        
+    }
 }

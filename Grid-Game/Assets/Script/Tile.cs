@@ -6,6 +6,7 @@ public class Tile : MonoBehaviour
 {
     [SerializeField] private GameObject HighLightCover;
     public bool unitOnTile;
+    public bool playerOnIt;
     public int x;
     public int y;
     public int tileType = 0;
@@ -33,6 +34,19 @@ public class Tile : MonoBehaviour
 
     //    }
     //}
+
+
+    private void Update()
+    {
+        if (unitOnTile == true)
+        {
+            tileType = 1;
+        }
+        else
+        {
+            tileType = 0;
+        }
+    }
 
     public void ResetGrid()
     {

@@ -36,6 +36,11 @@ public class TurnManager : MonoBehaviour
 
     [SerializeField]
     public Unit[] EnemyList = new Unit[5];
+    [SerializeField]
+    public List<Unit> PlayerList;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -76,8 +81,10 @@ public class TurnManager : MonoBehaviour
                     while (turnStage == gameStage.playerTurn)
                     {
                         playerMove();
+
                         if (playerIsFinish)
                         {
+                            
                             turnStage = gameStage.enemyTurn;
                         }
 
@@ -171,6 +178,8 @@ public class TurnManager : MonoBehaviour
                 }
             }
         }
+
+        
     }
 
     public void excuteTheBehave()
@@ -208,6 +217,20 @@ public class TurnManager : MonoBehaviour
                     {
                         if (EnemyDice[j].behave == "Move" && EnemyDice[j].isUsed == false)// have attack relate dice
                         {
+                            while (true)
+                            {
+                                int randomEnemy = Random.Range(0, EnemyList.Length - 1);
+                                if (EnemyList[randomEnemy] == null)
+                                {
+                                    randomEnemy = Random.Range(0, EnemyList.Length - 1);
+                                }
+                                else
+                                {
+                                    EnemyList[randomEnemy].EnemyMoveTo(PlayerList);
+                                    break;
+                                }
+                            }
+                            
                             Debug.Log("Enemy try to move");
                             EnemyDice[j].isUsed = true;
                             return;

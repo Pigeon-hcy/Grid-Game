@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
     public bool selected;
-    public Tile locateTile;
+    
     public GameManager gameManager;
  
     public NewUnit newUnit;
-    public int movement;
+   
 
     public bool isEnemy;
 
@@ -17,7 +18,7 @@ public class Unit : MonoBehaviour
     bool isMoving;
     [SerializeField]
     float timeToMove;
-
+    public int movement;
     [SerializeField]
     GridManager gridManager;
     [SerializeField]
@@ -30,8 +31,18 @@ public class Unit : MonoBehaviour
     [SerializeField]
     int attackDamage;
 
+
+    [Header("PathFinding")]
+    public Tile locateTile;
+    private List<AStarNode> path = new List<AStarNode>();
+
+
+
+
+
     private void Start()
     {
+        locateTile.unitOnTile = true;
         turnManager = GameObject.FindGameObjectWithTag("TurnManager").GetComponent<TurnManager>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         if(isEnemy == false)
@@ -51,8 +62,10 @@ public class Unit : MonoBehaviour
         {
             locateTile.unitOnTile = false;
             locateTile = target;
+            locateTile.playerOnIt = false;
             //move the unit
             target.unitOnTile = true;
+            locateTile.playerOnIt = true;
             StartCoroutine(MovePlayer(target.transform.position));
             gridManager.ResetTile();
             Debug.Log("can move");
@@ -65,6 +78,21 @@ public class Unit : MonoBehaviour
             return;
         }
     }
+
+
+    public void EnemyMoveTo(List<Unit> Players)
+    {
+        Debug.Log("Enemymove2");
+        path = gridManager.CalculatePathfinding(locateTile, findClosestPlayerUnit(Players), movement);
+        if (path != null && path.Count > 0)
+        {
+            Debug.Log("Enemymove3");
+            StartCoroutine(followPath(path));
+            
+        }
+
+    }
+
 
     public void Attack(Unit target)
     {
@@ -158,7 +186,36 @@ public class Unit : MonoBehaviour
     }
 
 
+    private IEnumerator followPath(List<AStarNode> path)
+    {
+        for(int i = 0; i < path.Count - 1; i++)
+        {
+            locateTile.unitOnTile = false;
+            locateTile = path[i].Tile;
+            locateTile.unitOnTile = true;
 
+            isMoving = true;
+
+            Vector3 originPos = transform.position;
+
+            float elapsedTime = 0;
+
+            while (elapsedTime < timeToMove)
+            {
+                transform.position = Vector3.Lerp(originPos, path[i].Tile.transform.position, elapsedTime / timeToMove);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            transform.position = path[i].Tile.transform.position;
+            //CheckForEnemies(attackRange);
+            isMoving = false;
+
+
+            //Debug.Log(path[i].GCost);
+            yield return new WaitForSeconds(0.3f);
+        }
+    }
     private IEnumerator MovePlayer(Vector3 targetPos)
     {
         isMoving = true;
@@ -175,6 +232,7 @@ public class Unit : MonoBehaviour
         }
 
         transform.position = targetPos;
+
         //CheckForEnemies(attackRange);
         isMoving = false;
     }
@@ -196,5 +254,33 @@ public class Unit : MonoBehaviour
             }
         }
 
+    }
+
+    private Tile findClosestPlayerUnit(List<Unit> players)
+    { 
+        Unit nearest = null;
+        int shortest = int.MaxValue;
+        Debug.Log("Enemymove4");
+        for (int i = 0; i < players.Count; i++)
+        {
+            if (players[i] == null)
+            {
+                continue;
+            }
+            path = gridManager.CalculatePathfinding(locateTile, players[i].locateTile, int.MaxValue);
+            if (path != null && path.Count > 0 && path.Count < shortest)
+            {
+                shortest = path.Count;
+                nearest = players[i];
+            }
+        }
+
+        return nearest.locateTile;
+    }
+
+
+    public void reLocate()
+    { 
+        locateTile.playerOnIt = true;
     }
 }
