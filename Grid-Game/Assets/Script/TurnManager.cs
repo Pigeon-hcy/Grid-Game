@@ -197,6 +197,7 @@ public class TurnManager : MonoBehaviour
         {
             if (EnemyList[i] != null)
             {
+                ///////////////////////////////////Attack///////////////////////////////////////////
                 if (EnemyList[i].CheckForPlayer(EnemyList[i].attackRange) == true)
                 {
                     for (int j = 0; j < EnemyDice.Length; j++)
@@ -204,6 +205,18 @@ public class TurnManager : MonoBehaviour
                         if (EnemyDice[j].behave == "Attack" && EnemyDice[j].isUsed == false)// have attack relate dice
                         {
                             Debug.Log("Enemy try to attack");
+                            int targetIndex = 0;
+                            int targetHealth = int.MaxValue;
+                            for (int k = 0; k < EnemyList[i].nearByPlayer.Count - 1; i++)
+                            { 
+                                if (EnemyList[i].nearByPlayer[k].health > targetHealth)
+                                {
+                                    targetHealth = EnemyList[i].nearByPlayer[k].health;
+                                    targetIndex = k;
+                                }
+                            }
+                            EnemyList[i].nearByPlayer[targetIndex].health -= EnemyList[i].attackDamage;
+
                             EnemyDice[j].isUsed = true;
                             return;
                         }

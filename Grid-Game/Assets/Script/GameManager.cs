@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
                         return;
                     }
 
-
+                    Debug.Log("PlayerAttack");
                     ////////////////////////////////////////////////
                 }
 

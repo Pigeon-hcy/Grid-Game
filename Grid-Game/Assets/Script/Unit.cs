@@ -26,11 +26,13 @@ public class Unit : MonoBehaviour
 
     [Header("Combat")]
     [SerializeField]
-    int health;
+    public int health;
     public int attackRange;
     [SerializeField]
-    int attackDamage;
+    public int attackDamage;
 
+    [SerializeField]
+    public List<Unit> nearByPlayer = new List<Unit>();
 
     [Header("PathFinding")]
     public Tile locateTile;
@@ -151,6 +153,7 @@ public class Unit : MonoBehaviour
 
     public bool CheckForPlayer(int attackRange)
     {
+        nearByPlayer.Clear();
         List<Vector3> attackOffsets = new List<Vector3>();
 
         for (int x = -attackRange; x <= attackRange; x++)
@@ -170,20 +173,29 @@ public class Unit : MonoBehaviour
             Vector3 checkPos = transform.position + offset;
             //Collider2D hit = Physics2D.OverlapCircle(checkPos, 0.1f); // Check for unit presence
             Vector2 boxSize = new Vector2(0.9f, 0.9f); // Adjust based on the true tile size, for now just assume grid 1 *1
-            Collider2D hit = Physics2D.OverlapBox(checkPos, boxSize, 0f);
-
+            Collider2D hit = Physics2D.OverlapBox(checkPos, boxSize, 0);
+            Debug.Log(hit);
             if (hit != null)
             {
+                
                 Unit nearbyUnit = hit.GetComponent<Unit>();
-                if (nearbyUnit != null && !nearbyUnit.isEnemy  /*&& turnManager.currentBehave == "Attack"*/) // Found an enemy nearby
+                
+                if (nearbyUnit != null && !nearbyUnit.isEnemy  /*&& turnManager.currentBehave == "Attack"*/) // Found an player nearby
                 {
-                    Debug.Log("Can attack!");
+                    
+                    nearByPlayer.Add(nearbyUnit);
                     return true;
                 }
             }
         }
+        
         return false;
     }
+
+
+
+    
+
 
 
     private IEnumerator followPath(List<AStarNode> path)
