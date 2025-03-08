@@ -88,7 +88,7 @@ public class TurnManager : MonoBehaviour
                             turnStage = gameStage.enemyTurn;
                         }
 
-                        yield return null;
+                        yield return new WaitForSeconds(2f);
                     }
                     //yield return new WaitUntil(playIsFinished);
                     //turnStage = gameStage.enemyTurn;
@@ -106,7 +106,7 @@ public class TurnManager : MonoBehaviour
                         turnStage = gameStage.playerTurn;
                     }
 
-                    yield return null;
+                    yield return new WaitForSeconds(2f);
                     break;
                 case gameStage.turnEnd:
                     

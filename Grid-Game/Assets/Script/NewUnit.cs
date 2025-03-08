@@ -21,6 +21,10 @@ public class NewUnit : ScriptableObject
     public Sprite Sprite;
     public Sprite EnemySprite;
 
+    [Tooltip("Dice")]
+    public List<string> diceStrings;
+    public List<Sprite> diceSprites;
+
 }
 
 

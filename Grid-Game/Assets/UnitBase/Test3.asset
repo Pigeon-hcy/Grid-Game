@@ -16,5 +16,19 @@ MonoBehaviour:
   Movement: 3
   AttackRange: 3
   Attack: 2
-  Sprite: {fileID: 21300000, guid: b9da3be4b80cdaa4f87551d53475710a, type: 3}
-  EnemySprite: {fileID: 21300000, guid: b7ae517900c520247aa158304980f73d, type: 3}
+  Sprite: {fileID: 21300000, guid: ae297123f091bbf4e8f1835eb98fb293, type: 3}
+  EnemySprite: {fileID: 21300056, guid: ae297123f091bbf4e8f1835eb98fb293, type: 3}
+  diceStrings:
+  - Move
+  - Attack
+  - Attack
+  - Move
+  - Empty
+  - Empty
+  diceSprites:
+  - {fileID: 21300000, guid: bf2d6ed56e8bb4340887002674f73ee9, type: 3}
+  - {fileID: 21300000, guid: 5e15b46c39490b84abf1474a15e532f4, type: 3}
+  - {fileID: 21300000, guid: 5e15b46c39490b84abf1474a15e532f4, type: 3}
+  - {fileID: 21300000, guid: bf2d6ed56e8bb4340887002674f73ee9, type: 3}
+  - {fileID: 21300000, guid: a975308a8cf063d4987ff7876b6bab70, type: 3}
+  - {fileID: 21300000, guid: a975308a8cf063d4987ff7876b6bab70, type: 3}

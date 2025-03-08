@@ -36,6 +36,26 @@ public class GridManager : MonoBehaviour
     public GameManager gameManager;
     public bool inMovingMode;
     public TurnManager turnManager;
+
+    [SerializeField]
+    UnitLoader unitLoader;
+    public List<NewUnit> PlayerunitList;
+    public List<NewUnit> EnemyunitList;
+    private void Awake()
+    {
+        unitLoader = GameObject.FindGameObjectWithTag("Loader").GetComponent<UnitLoader>();
+        PlayerunitList = UnitLoader.Instance.Playersunits;
+        EnemyunitList = UnitLoader.Instance.Enemyunits;
+
+    }
+
+    public Tile vectorToTile(Vector3 target)
+    {
+        int x = Mathf.RoundToInt(target.x);
+        int y = Mathf.RoundToInt(target.y); 
+        return tiles[x, y];
+    }
+
     private void Start()
     {
         tiles = new Tile[width, hieght];
@@ -47,11 +67,11 @@ public class GridManager : MonoBehaviour
 
     void placeUnit()
     {
-        for (int i = 0; i < PlayerUnit.Length ; i++)
+        for (int i = 0; i < PlayerunitList.Count ; i++)
         {
             //0,0 is for debug only
             GameObject unit = Instantiate(Unit, new Vector2(0, i),quaternion.identity);
-            unit.GetComponent<Unit>().newUnit = PlayerUnit[i];
+            unit.GetComponent<Unit>().newUnit = PlayerunitList[i];
             unit.GetComponent<Unit>().locateTile = tiles[0,i];
             
             turnManager.PlayerList.Add(unit.GetComponent<Unit>());
@@ -61,13 +81,14 @@ public class GridManager : MonoBehaviour
 
     void placeEnemy()
     {
-        for (int i = 0; i < EnemyUnit.Length; i++)
+        for (int i = 0; i < EnemyunitList.Count; i++)
         {
             //0,0 is for debug only
             GameObject unit = Instantiate(Unit, new Vector2(_width - 1, i), quaternion.identity);
-            unit.GetComponent<Unit>().newUnit = EnemyUnit[i];
+            unit.GetComponent<Unit>().newUnit = EnemyunitList[i];
             unit.GetComponent<Unit>().locateTile = tiles[_width - 1, i];
             unit.GetComponent<Unit>().isEnemy = true;
+
             turnManager.EnemyList[i] = unit.GetComponent<Unit>();
             
         }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -84,14 +85,48 @@ public class Unit : MonoBehaviour
 
     public void EnemyMoveTo(List<Unit> Players)
     {
-        Debug.Log("Enemymove2");
-        path = gridManager.CalculatePathfinding(locateTile, findClosestPlayerUnit(Players), movement);
-        if (path != null && path.Count > 0)
+        Tile player = findClosestPlayerUnit(Players);
+        
+        if (player != null)
         {
-            Debug.Log("Enemymove3");
-            StartCoroutine(followPath(path));
-            
+            List<Vector3> playerAroundTiles = findAroundingTiles(player);
+            if (playerAroundTiles.Count > 0)
+            {
+                Vector3 bestTile = getCloseTile(playerAroundTiles);
+                if (bestTile != null)
+                {
+                    path = gridManager.CalculatePathfinding(locateTile, gridManager.vectorToTile(bestTile), movement);
+                    if (path != null && path.Count > 0)
+                    {
+                        StartCoroutine(followPath(path));
+                    }
+                }
+            }
+            else
+            {
+                Debug.Log("No Space");
+            }
         }
+        
+        //Debug.Log("Enemymove2");
+        //path = gridManager.CalculatePathfinding(locateTile, findClosestPlayerUnit(Players), movement);
+
+        //if (path != null && path.Count > 0)
+        //{
+        //    Debug.Log("Enemymove3");
+        //    //Tile nextPos = path[0].Tile;
+        //    //if (!isEnemyOnIt(nextPos))
+        //    //{
+                
+        //    //}
+        //    //else
+        //    //{
+        //    //    Debug.Log("Block!");
+
+        //    //}
+        //    StartCoroutine(followPath(path));
+
+        //}
 
     }
 
@@ -200,8 +235,16 @@ public class Unit : MonoBehaviour
 
     private IEnumerator followPath(List<AStarNode> path)
     {
-        for(int i = 0; i < path.Count - 1; i++)
+        for(int i = 0; i < path.Count; i++)
         {
+            Tile nextPos = path[i].Tile;
+
+            if (isEnemyOnIt(nextPos.transform.position) == true)
+            {
+                Debug.LogWarning("Block!");
+                yield break;
+            }
+
             locateTile.unitOnTile = false;
             locateTile = path[i].Tile;
             locateTile.unitOnTile = true;
@@ -268,6 +311,72 @@ public class Unit : MonoBehaviour
 
     }
 
+    private bool isEnemyOnIt(Vector3 tile)
+    {
+        foreach (Unit enemy in turnManager.EnemyList)
+        {
+            if (Vector2.Distance(tile, enemy.transform.position) < 0.9f)
+            { 
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    private bool checkInRange(Vector3 playerPos)
+    {
+        return (playerPos.x < gridManager.width && playerPos.x >= 0 && playerPos.y < gridManager.hieght && playerPos.y >= 0);
+    }
+
+
+
+    private List<Vector3> findAroundingTiles(Tile tile)
+    { 
+        List<Vector3> opneTile = new List<Vector3>();
+        Vector3[] directions =
+        {
+            tile.transform.position + new Vector3(1, 0, 0),
+            tile.transform.position + new Vector3(-1, 0, 0),
+            tile.transform.position + new Vector3(0, 1, 0),
+            tile.transform.position + new Vector3(0, -1, 0),
+        };
+
+        foreach (Vector3 target in directions)
+        {
+            if (isEnemyOnIt(target) == false && checkInRange(target) && gridManager.vectorToTile(target).unitOnTile == false)
+            {
+                opneTile.Add(target);
+            }
+        }
+
+
+        return opneTile;
+    }
+
+
+    private Vector3 getCloseTile(List<Vector3> targetList)
+    {
+        if (targetList.Count == 0)
+        { 
+            return this.transform.position;
+        }
+        float minDistance = int.MaxValue;
+        Vector3 bestTile = targetList[0];
+
+        foreach (Vector3 target in targetList)
+        {
+            float currentDistance = Vector2.Distance(bestTile, target);
+            if (currentDistance < minDistance)
+            {
+                bestTile = target;
+                minDistance = currentDistance;
+            }
+
+        }
+        return bestTile;    
+    }
+
     private Tile findClosestPlayerUnit(List<Unit> players)
     { 
         Unit nearest = null;
@@ -279,9 +388,11 @@ public class Unit : MonoBehaviour
             {
                 continue;
             }
+
             path = gridManager.CalculatePathfinding(locateTile, players[i].locateTile, int.MaxValue);
             if (path != null && path.Count > 0 && path.Count < shortest)
             {
+                
                 shortest = path.Count;
                 nearest = players[i];
             }

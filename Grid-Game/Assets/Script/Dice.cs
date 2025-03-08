@@ -4,21 +4,12 @@ using UnityEngine;
 
 public class Dice : MonoBehaviour
 {
-    public string[] diceFace =
-    {
-        "Move",
-        "Move",
-        "Move",
-        "Attack",
-        "Attack",
-        "Empty"
-    };
+   
 
-    [SerializeField]
-    Sprite[] diceFaceSprite =
-    { 
-        
-    };
+    public List<string> diceFace = new List<string>();
+    public List<Sprite> diceFaceSprite = new List<Sprite>();
+
+
     public string behave;
     public int diceIndex;
     public bool isrolling;
@@ -50,7 +41,7 @@ public class Dice : MonoBehaviour
         {
             return;
         }
-        diceIndex = Random.Range(0, diceFace.Length);
+        diceIndex = Random.Range(0, diceFace.Count);
         GetComponent<SpriteRenderer>().sprite = diceFaceSprite[diceIndex];
         isUsed = false;
         behave = diceFace[diceIndex];

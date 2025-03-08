@@ -1840,6 +1840,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1242593387}
+  - component: {fileID: 1242593388}
   m_Layer: 0
   m_Name: EnemyDice
   m_TagString: Untagged
@@ -1867,6 +1868,26 @@ Transform:
   - {fileID: 450410020}
   m_Father: {fileID: 519420032}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1242593388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242593386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58f3432ae4c8a0a419778f237580020a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  diceList:
+  - {fileID: 343915474}
+  - {fileID: 2100524151}
+  - {fileID: 1894977028}
+  - {fileID: 1127199293}
+  - {fileID: 450410022}
+  unitLoader: {fileID: 0}
+  EnemyUnitList: []
 --- !u!1 &1335589761
 GameObject:
   m_ObjectHideFlags: 0
@@ -2196,6 +2217,9 @@ MonoBehaviour:
   gameManager: {fileID: 1380054815}
   inMovingMode: 0
   turnManager: {fileID: 1426587584}
+  unitLoader: {fileID: 0}
+  PlayerunitList: []
+  EnemyunitList: []
 --- !u!4 &1759195100
 Transform:
   m_ObjectHideFlags: 0
@@ -2220,6 +2244,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1770790999}
+  - component: {fileID: 1770791000}
   m_Layer: 0
   m_Name: PlayerDice
   m_TagString: Untagged
@@ -2247,6 +2272,26 @@ Transform:
   - {fileID: 216330900}
   m_Father: {fileID: 519420032}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1770791000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1770790998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e03dac3ff19ad4488b90559980a6886, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  diceList:
+  - {fileID: 1851620572}
+  - {fileID: 1158049413}
+  - {fileID: 2080367650}
+  - {fileID: 1139312578}
+  - {fileID: 216330901}
+  unitLoader: {fileID: 0}
+  PlayerunitList: []
 --- !u!1 &1832925403
 GameObject:
   m_ObjectHideFlags: 0
