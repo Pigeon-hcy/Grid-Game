@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
             {
                 RaycastHit2D closestHit = hit.OrderBy(h => Vector2.Distance(h.point, mousePosition)).First();
                 Tile targetTile = closestHit.collider.GetComponent<Tile>();
+                ///////////////////////////Move////////////////////////////////
                 if (targetTile != null && selectedUnit != null)
                 {
                     //excute the current behave
@@ -50,7 +51,7 @@ public class GameManager : MonoBehaviour
 
 
 
-                    /////////////////////////////////////////////////////
+                    ////////////////////////Attack/////////////////////////////
                     if (turnManager.currentBehave == "Attack" && !clickedUnit.isEnemy)
                     {
                         if (selectedUnit != clickedUnit)
@@ -79,6 +80,12 @@ public class GameManager : MonoBehaviour
 
                     Debug.Log("PlayerAttack");
                     ////////////////////////////////////////////////
+                    
+
+
+
+
+                    /////////////////////////////////////////////
                 }
 
                 Dice clickedDice = closestHit.collider.GetComponent<Dice>();
@@ -89,6 +96,5 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
 
 }

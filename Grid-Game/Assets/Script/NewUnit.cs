@@ -25,6 +25,9 @@ public class NewUnit : ScriptableObject
     public List<string> diceStrings;
     public List<Sprite> diceSprites;
 
+    [Tooltip("Effect")]
+    public unitEffect unitEffect;
+
 }
 
 

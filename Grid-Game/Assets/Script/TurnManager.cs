@@ -38,6 +38,8 @@ public class TurnManager : MonoBehaviour
     public Unit[] EnemyList = new Unit[5];
     [SerializeField]
     public List<Unit> PlayerList;
+    [SerializeField]
+    GameObject skipButton;
 
 
 
@@ -80,11 +82,15 @@ public class TurnManager : MonoBehaviour
                     Debug.Log("Player turn start");
                     while (turnStage == gameStage.playerTurn)
                     {
+                        if (gameManager.selectedDice != null && gameManager.selectedDice.isUsed == false)
+                        { 
+                            skipButton.SetActive(true);
+                        }
                         playerMove();
 
                         if (playerIsFinish)
                         {
-                            
+                            skipButton.SetActive(false);
                             turnStage = gameStage.enemyTurn;
                         }
 
@@ -95,7 +101,7 @@ public class TurnManager : MonoBehaviour
                     break;
                 case gameStage.enemyTurn:
 
-
+                    
                     enemyThinkMove();
                     if (passToPlayerOrEndTheTurn() == true)
                     {
