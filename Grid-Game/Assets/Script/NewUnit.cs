@@ -17,16 +17,17 @@ public class NewUnit : ScriptableObject
     public int AttackRange;
     public int Attack;
 
-    [Tooltip("Sprite")]
+    [Tooltip("Animator")]
     public Sprite Sprite;
     public Sprite EnemySprite;
+    public RuntimeAnimatorController AnimatorController;
 
     [Tooltip("Dice")]
     public List<string> diceStrings;
     public List<Sprite> diceSprites;
 
     [Tooltip("Effect")]
-    public unitEffect unitEffect;
+    public string effectName;
 
 }
 

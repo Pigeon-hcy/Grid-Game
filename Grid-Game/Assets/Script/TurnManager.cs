@@ -177,6 +177,9 @@ public class TurnManager : MonoBehaviour
                         Debug.Log("Pass case");
                         currentBehave = "Attack";
                         break;
+                    case "Effect":
+                        currentBehave = "Effect";
+                        break;
                     case "Empty":
                         Debug.Log("Pass case");
                         currentBehave = "Empty";
@@ -255,6 +258,30 @@ public class TurnManager : MonoBehaviour
                             return;
                         }
                     }
+                    /////////////////////////////Effect/////////////////////////////////
+                    for (int j = 0; j < EnemyDice.Length; j++)
+                    {
+                        if (EnemyDice[j].behave == "Effect" && EnemyDice[j].isUsed == false)// have attack relate dice
+                        {
+                            int randomEnemy = Random.Range(0, EnemyList.Length - 1);
+                            if (EnemyList[randomEnemy] == null)
+                            {
+                                randomEnemy = Random.Range(0, EnemyList.Length - 1);
+                            }
+                            else
+                            {
+                                EnemyList[randomEnemy].useEffect();
+
+                                break;
+                            }
+
+
+                            Debug.Log("Enemy try to use effect");
+                            EnemyDice[j].isUsed = true;
+                            return;
+                        }
+                    }
+
 
                     //////////////////////////////SKIP//////////////////////////////////////////
                     for (int j = 0; j < EnemyDice.Length; j++)
@@ -266,6 +293,9 @@ public class TurnManager : MonoBehaviour
                             return;
                         }
                     }
+                   
+
+
 
                     for (int j = 0; j < EnemyDice.Length; j++)
                     {

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class unitEffect
+public abstract class unitEffect : ScriptableObject
 {
     public string effectName;
     public abstract void effect();

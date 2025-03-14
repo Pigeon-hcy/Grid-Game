@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5914826254949579570}
   - component: {fileID: 5785582581670773541}
   - component: {fileID: 1783263188329111973}
+  - component: {fileID: 8659382081572019417}
   m_Layer: 0
   m_Name: Test Unit
   m_TagString: Untagged
@@ -99,11 +100,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selected: 0
-  locateTile: {fileID: 0}
   gameManager: {fileID: 0}
   newUnit: {fileID: 0}
   isEnemy: 0
   timeToMove: 0.3
+  movement: 0
+  gridManager: {fileID: 0}
+  turnManager: {fileID: 0}
+  health: 0
+  attackRange: 0
+  attackDamage: 0
+  nearByPlayer: []
+  locateTile: {fileID: 0}
+  listOfAbility:
+  - {fileID: 11400000, guid: b58dd24eadac21f40bb618da33a83ae1, type: 2}
+  animator: {fileID: 0}
 --- !u!61 &1783263188329111973
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -149,3 +160,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.57, y: 0.62885994}
   m_EdgeRadius: 0
+--- !u!95 &8659382081572019417
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 13474483811428267}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fbe4005836b5b914784913e937f5fa4d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

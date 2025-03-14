@@ -2,33 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class selfHealing : unitEffect
+[CreateAssetMenu(menuName = "Abilities/Self Healing")]
+public class selfHealing : ScriptableObject, unitAbility
 {
-    public selfHealing()
-        : base() 
+    public int healAmount = 4;
+
+    public void useEffect(Unit target)
     {
-        effectName = "selfHealing";
-        
+        target.health += healAmount;
     }
 
-    public override void effect()
-    {
-        
-    }
-
-    public override void effect(List<Unit> targets)
-    {
-        
-    }
-
-    public override void effect(Tile targetTile)
-    {
-        
-    }
-
-    public override void effect(Unit self)
-    {
-        self.health += 4;
-        Debug.Log("self Heal");
-    }
 }

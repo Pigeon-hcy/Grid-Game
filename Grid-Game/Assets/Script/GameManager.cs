@@ -79,8 +79,14 @@ public class GameManager : MonoBehaviour
                     }
 
                     Debug.Log("PlayerAttack");
-                    ////////////////////////////////////////////////
-                    
+                    //////////////////////Effect//////////////////////////
+                    if (turnManager.currentBehave == "Effect")
+                    {
+
+                        selectedUnit = clickedUnit;
+                        clickedUnit.useEffect();
+                        Debug.Log("EffectUse!");
+                    }
 
 
 

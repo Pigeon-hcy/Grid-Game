@@ -40,11 +40,19 @@ public class Unit : MonoBehaviour
     private List<AStarNode> path = new List<AStarNode>();
 
 
+    [Header("UnitEffect")]
+    [SerializeField] List<ScriptableObject> listOfAbility = new List<ScriptableObject>();
+    string effectName;
 
+    [Header("Animator")]
+    [SerializeField]
+    Animator animator;
 
 
     private void Start()
     {
+        animator = GetComponent<Animator>();
+        animator.runtimeAnimatorController = newUnit.AnimatorController;
         locateTile.unitOnTile = true;
         turnManager = GameObject.FindGameObjectWithTag("TurnManager").GetComponent<TurnManager>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
@@ -56,8 +64,27 @@ public class Unit : MonoBehaviour
         health = newUnit.Health;
         attackRange = newUnit.AttackRange;
         attackDamage = newUnit.Attack;
+        effectName = newUnit.effectName;
         gridManager = GameObject.FindGameObjectWithTag("GridManager").GetComponent<GridManager>();
     }
+
+    public void useEffect()
+    {
+        switch (effectName)
+        {
+            case "selfHealing":
+                (listOfAbility[0] as unitAbility)?.useEffect(this);
+                turnManager.excuteTheBehave();
+                Debug.Log("Self Heal");
+                break;
+
+            default:
+                turnManager.excuteTheBehave();
+                Debug.Log("No Skill");
+                break;
+        }
+    }
+
 
     public void MoveTo(Tile target)
     {
