@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using System.Linq;
+using static TurnManager;
 public class GameManager : MonoBehaviour
 {
     public Unit selectedUnit;
@@ -10,6 +11,8 @@ public class GameManager : MonoBehaviour
     public Dice selectedDice;
     public GridManager gridManager;
     public TurnManager turnManager;
+    public GameManager gameManager;
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -21,6 +24,8 @@ public class GameManager : MonoBehaviour
             {
                 RaycastHit2D closestHit = hit.OrderBy(h => Vector2.Distance(h.point, mousePosition)).First();
                 Tile targetTile = closestHit.collider.GetComponent<Tile>();
+                Unit clickedUnit = closestHit.collider.GetComponent<Unit>();
+
                 ///////////////////////////Move////////////////////////////////
                 if (targetTile != null && selectedUnit != null)
                 {
@@ -33,10 +38,29 @@ public class GameManager : MonoBehaviour
                         return;
                     }
 
+                    if (turnManager.currentBehave == "Charge")
+                    {
+
+
+                        selectedUnit.ChargeTo(targetTile);
+                        turnManager.currentBehave = null;
+                        selectedDice.isUsed = true;
+                        if (selectedUnit.CheckForEnemies(selectedUnit.attackRange) == true)
+                        {
+                            turnManager.currentBehave = "Attack";
+                        }
+                        else
+                        {
+                            turnManager.excuteTheBehave();
+                        }
+
+                    }
+
                     
+
+
                 }
                 ///////////////////////Unit//////////////////////
-                Unit clickedUnit = closestHit.collider.GetComponent<Unit>();
                 if (clickedUnit != null)
                 {
 
@@ -48,7 +72,12 @@ public class GameManager : MonoBehaviour
                         Debug.Log("Unit Selected: " + selectedUnit.name);
                     }
 
-
+                    if (turnManager.currentBehave == "Charge")
+                    {
+                        selectedUnit = clickedUnit;
+                        gridManager.ShowTheMovingRange(selectedUnit);
+                        Debug.Log(clickedUnit);
+                    }
 
 
                     ////////////////////////Attack/////////////////////////////
@@ -78,20 +107,21 @@ public class GameManager : MonoBehaviour
                         return;
                     }
 
-                    Debug.Log("PlayerAttack");
+
+
                     //////////////////////Effect//////////////////////////
                     if (turnManager.currentBehave == "Effect")
                     {
 
                         selectedUnit = clickedUnit;
                         clickedUnit.useEffect();
-                        Debug.Log("EffectUse!");
                     }
 
 
 
 
-                    /////////////////////////////////////////////
+                    ////////////////////Charge/////////////////////////
+                   
                 }
 
                 Dice clickedDice = closestHit.collider.GetComponent<Dice>();

@@ -98,17 +98,58 @@ public class Unit : MonoBehaviour
             locateTile.playerOnIt = true;
             StartCoroutine(MovePlayer(target.transform.position));
             gridManager.ResetTile();
-            Debug.Log("can move");
             turnManager.excuteTheBehave();
         }
         else
         {
             gridManager.ResetTile();
-            Debug.Log("can't move");
             return;
         }
     }
 
+
+    public void ChargeTo(Tile target)
+    {
+        if (target.unitOnTile == false && target.available == true && isEnemy == false && isMoving == false)
+        {
+
+            locateTile.unitOnTile = false;
+            locateTile = target;
+            locateTile.playerOnIt = false;
+            //move the unit
+            target.unitOnTile = true;
+            locateTile.playerOnIt = true;
+            StartCoroutine(MovePlayer(target.transform.position));
+            gridManager.ResetTile();
+        }
+        else
+        {
+            gridManager.ResetTile();
+            return;
+        }
+    }
+
+    private IEnumerator chargeAttack(Unit unit,Tile target)
+    {
+        if (target.unitOnTile == false && target.available == true && isEnemy == false && isMoving == false)
+        {
+            locateTile.unitOnTile = false;
+            locateTile = target;
+            locateTile.playerOnIt = false;
+            //move the unit
+            target.unitOnTile = true;
+            locateTile.playerOnIt = true;
+            StartCoroutine(MovePlayer(target.transform.position));
+            gridManager.ResetTile();
+        }
+        else
+        {
+            gridManager.ResetTile();
+        }
+        yield return new WaitUntil(() => unit.isMoving == false);
+        //attack
+        Debug.Log("Charge R4A");
+    }
 
     public void EnemyMoveTo(List<Unit> Players)
     {
@@ -164,8 +205,18 @@ public class Unit : MonoBehaviour
         turnManager.excuteTheBehave();
 
         if (target.health <= 0)
-        { 
+        {
+            if (target.isEnemy == true)
+            {
+                turnManager.EnemyList.Remove(target);
+            }
+            if (target.isEnemy == false)
+            {
+                turnManager.PlayerList.Remove(target);
+            }
+
             Destroy(target.gameObject);
+           
         }
 
     }
@@ -238,7 +289,6 @@ public class Unit : MonoBehaviour
             //Collider2D hit = Physics2D.OverlapCircle(checkPos, 0.1f); // Check for unit presence
             Vector2 boxSize = new Vector2(0.9f, 0.9f); // Adjust based on the true tile size, for now just assume grid 1 *1
             Collider2D hit = Physics2D.OverlapBox(checkPos, boxSize, 0);
-            Debug.Log(hit);
             if (hit != null)
             {
                 

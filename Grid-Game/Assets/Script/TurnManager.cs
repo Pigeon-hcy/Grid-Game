@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -35,12 +36,13 @@ public class TurnManager : MonoBehaviour
     static bool playerIsFinish;
 
     [SerializeField]
-    public Unit[] EnemyList = new Unit[5];
+    public List<Unit> EnemyList;
     [SerializeField]
     public List<Unit> PlayerList;
     [SerializeField]
     GameObject skipButton;
-
+    [SerializeField]
+    TMP_Text text;
 
 
     // Start is called before the first frame update
@@ -56,7 +58,7 @@ public class TurnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        text.text = "Current Move " + currentBehave;
     }
 
 
@@ -180,6 +182,9 @@ public class TurnManager : MonoBehaviour
                     case "Effect":
                         currentBehave = "Effect";
                         break;
+                    case "Charge":
+                        currentBehave = "Charge";
+                        break;
                     case "Empty":
                         Debug.Log("Pass case");
                         currentBehave = "Empty";
@@ -202,7 +207,7 @@ public class TurnManager : MonoBehaviour
     private void enemyThinkMove()
     {
         
-        for (int i = 0; i < EnemyList.Length; i++)
+        for (int i = 0; i < EnemyList.Count; i++)
         {
             if (EnemyList[i] != null)
             {
@@ -216,7 +221,7 @@ public class TurnManager : MonoBehaviour
                             Debug.Log("Enemy try to attack");
                             int targetIndex = 0;
                             int targetHealth = int.MaxValue;
-                            for (int k = 0; k < EnemyList[i].nearByPlayer.Count - 1; i++)
+                            for (int k = 0; k < EnemyList[i].nearByPlayer.Count - 1; k++)
                             { 
                                 if (EnemyList[i].nearByPlayer[k].health > targetHealth)
                                 {
@@ -241,10 +246,10 @@ public class TurnManager : MonoBehaviour
                         {
                             while (true)
                             {
-                                int randomEnemy = Random.Range(0, EnemyList.Length - 1);
+                                int randomEnemy = Random.Range(0, EnemyList.Count - 1);
                                 if (EnemyList[randomEnemy] == null)
                                 {
-                                    randomEnemy = Random.Range(0, EnemyList.Length - 1);
+                                    randomEnemy = Random.Range(0, EnemyList.Count - 1);
                                 }
                                 else
                                 {
@@ -258,15 +263,43 @@ public class TurnManager : MonoBehaviour
                             return;
                         }
                     }
+                    //////////////////////////////TODO Charge/////////////////////////////////
+
+                    for (int j = 0; j < EnemyDice.Length; j++)
+                    {
+                        if (EnemyDice[j].behave == "Charge" && EnemyDice[j].isUsed == false)// have attack relate dice
+                        {
+                            while (true)
+                            {
+                                int randomEnemy = Random.Range(0, EnemyList.Count - 1);
+                                if (EnemyList[randomEnemy] == null)
+                                {
+                                    randomEnemy = Random.Range(0, EnemyList.Count - 1);
+                                }
+                                else
+                                {
+                                    EnemyList[randomEnemy].EnemyMoveTo(PlayerList);
+                                    break;
+                                }
+                            }
+
+
+                            EnemyDice[j].isUsed = true;
+                            return;
+                        }
+                    }
+
+
+
                     /////////////////////////////Effect/////////////////////////////////
                     for (int j = 0; j < EnemyDice.Length; j++)
                     {
                         if (EnemyDice[j].behave == "Effect" && EnemyDice[j].isUsed == false)// have attack relate dice
                         {
-                            int randomEnemy = Random.Range(0, EnemyList.Length - 1);
+                            int randomEnemy = Random.Range(0, EnemyList.Count - 1);
                             if (EnemyList[randomEnemy] == null)
                             {
-                                randomEnemy = Random.Range(0, EnemyList.Length - 1);
+                                randomEnemy = Random.Range(0, EnemyList.Count - 1);
                             }
                             else
                             {
