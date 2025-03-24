@@ -5,6 +5,7 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     [SerializeField] private GameObject HighLightCover;
+    [SerializeField] private GameObject AttackCover;
     public bool unitOnTile;
     public bool playerOnIt;
     public int x;
@@ -50,9 +51,16 @@ public class Tile : MonoBehaviour
 
     public void ResetGrid()
     {
+        AttackCover.SetActive(false);
         HighLightCover.SetActive(false);
         available = false;
     }
+
+    public void drawAttack()
+    {
+        AttackCover.SetActive(true);
+    }
+
 
     private void OnMouseOver()
     {

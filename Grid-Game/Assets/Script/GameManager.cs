@@ -86,6 +86,7 @@ public class GameManager : MonoBehaviour
                         if (selectedUnit != clickedUnit)
                         {
                             selectedUnit = clickedUnit;
+                            selectedUnit.drawAttackRange();
                         }
                     }
 
@@ -104,6 +105,7 @@ public class GameManager : MonoBehaviour
                         selectedUnit.Attack(secondUnit);
                         selectedUnit = null;
                         secondUnit = null;
+                        gridManager.ResetTile();
                         return;
                     }
 

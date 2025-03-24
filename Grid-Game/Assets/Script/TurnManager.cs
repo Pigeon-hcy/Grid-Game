@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -43,6 +44,8 @@ public class TurnManager : MonoBehaviour
     GameObject skipButton;
     [SerializeField]
     TMP_Text text;
+    [SerializeField]
+    GridManager gridManager;
 
 
     // Start is called before the first frame update
@@ -254,6 +257,7 @@ public class TurnManager : MonoBehaviour
                     {
                         if (EnemyDice[j].behave == "Attack" && EnemyDice[j].isUsed == false)// have attack relate dice
                         {
+                            EnemyList[i].drawAttackRange();
                             Debug.Log("Enemy try to attack");
                             int targetIndex = 0;
                             int targetHealth = int.MaxValue;
@@ -266,7 +270,7 @@ public class TurnManager : MonoBehaviour
                                 }
                             }
                             EnemyList[i].nearByPlayer[targetIndex].health -= EnemyList[i].attackDamage;
-
+                            gridManager.ResetTile();
                             EnemyDice[j].isUsed = true;
                             return;
                         }
@@ -394,7 +398,7 @@ public class TurnManager : MonoBehaviour
         yield return new WaitForSeconds(3f);
         if (EnemyList[randomIndex].CheckForPlayer(EnemyList[randomIndex].attackRange) == true && EnemyList[randomIndex].isMoving == false)
         {
-
+            EnemyList[randomIndex].drawAttackRange();
             Debug.Log("Enemy try to attack");
             int targetIndex = 0;
             int targetHealth = int.MaxValue;
@@ -409,7 +413,8 @@ public class TurnManager : MonoBehaviour
             EnemyList[randomIndex].nearByPlayer[targetIndex].health -= EnemyList[randomIndex].attackDamage;
 
             EnemyDice[diceIndex].isUsed = true;
-            
+
+            gridManager.ResetTile();
 
             yield break;
         }

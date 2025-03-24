@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -307,7 +308,29 @@ public class Unit : MonoBehaviour
     }
 
 
+    public void drawAttackRange()
+    {
+        for (int x = -attackRange; x <= attackRange; x++)
+        {
+            for (int y = -attackRange; y <= attackRange; y++)
+            {
+                if (Mathf.Abs(y) + Mathf.Abs(x) > attackRange)
+                {
+                    continue;
 
+                }
+                else
+                {
+                    if (this.transform.position.x + x >= 0 && this.transform.position.x + x < gridManager.width && this.transform.position.y + y >= 0 && this.transform.position.y + y < gridManager.hieght)
+                    {
+                        Tile tile;
+                        tile = gridManager.vectorToTile(new Vector3(this.transform.position.x + x, this.transform.position.y + y, 0));
+                        tile.drawAttack();
+                    }
+                }
+            }
+        }
+    }
     
 
 

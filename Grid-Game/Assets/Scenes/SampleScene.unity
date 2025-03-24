@@ -2662,6 +2662,7 @@ MonoBehaviour:
   PlayerList: []
   skipButton: {fileID: 768517678}
   text: {fileID: 785106014}
+  gridManager: {fileID: 1759195099}
 --- !u!4 &1426587585
 Transform:
   m_ObjectHideFlags: 0
