@@ -236,10 +236,10 @@ public class TurnManager : MonoBehaviour
                                 isCharing = false;
                                 break;
                             }
-                        
 
-                       
 
+                        Debug.Log("Return");
+                        return;
                         ///////////////Attack//////////////////
 
                     }
@@ -392,7 +392,7 @@ public class TurnManager : MonoBehaviour
     private IEnumerator checkChargeAttack(int randomIndex, int diceIndex )
     {
         yield return new WaitForSeconds(3f);
-        if (EnemyList[randomIndex].CheckForPlayer(EnemyList[randomIndex].attackRange + EnemyList[randomIndex].movement) == true && EnemyList[randomIndex].isMoving == false)
+        if (EnemyList[randomIndex].CheckForPlayer(EnemyList[randomIndex].attackRange) == true && EnemyList[randomIndex].isMoving == false)
         {
 
             Debug.Log("Enemy try to attack");
