@@ -16,7 +16,7 @@ public class Unit : MonoBehaviour
     public bool isEnemy;
 
     [Header("Moving")]
-    bool isMoving;
+    public bool isMoving;
     [SerializeField]
     float timeToMove;
     public int movement;

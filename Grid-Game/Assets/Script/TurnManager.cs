@@ -211,6 +211,42 @@ public class TurnManager : MonoBehaviour
         {
             if (EnemyList[i] != null)
             {
+                //////////////////////////////TODO Charge/////////////////////////////////
+
+                for (int j = 0; j < EnemyDice.Length; j++)
+                {
+                    if (EnemyDice[j].behave == "Charge" && EnemyDice[j].isUsed == false)// have attack relate dice
+                    {
+                        Debug.Log("Enemy try to charge");
+                        bool isCharing = true;
+                        int randomIndex;
+
+                            int randomEnemy = Random.Range(0, EnemyList.Count - 1);
+                            randomIndex = randomEnemy;
+                            if (EnemyList[randomEnemy] == null)
+                            {
+                                randomEnemy = Random.Range(0, EnemyList.Count - 1);
+                                Debug.Log("refind");
+                            }
+                            else
+                            {
+                                Debug.Log("Enemy try to move");
+                                EnemyList[randomEnemy].EnemyMoveTo(PlayerList);
+                                StartCoroutine(checkChargeAttack(randomIndex, j));
+                                isCharing = false;
+                                break;
+                            }
+                        
+
+                       
+
+                        ///////////////Attack//////////////////
+
+                    }
+                }
+
+
+
                 ///////////////////////////////////Attack///////////////////////////////////////////
                 if (EnemyList[i].CheckForPlayer(EnemyList[i].attackRange) == true)
                 {
@@ -263,33 +299,6 @@ public class TurnManager : MonoBehaviour
                             return;
                         }
                     }
-                    //////////////////////////////TODO Charge/////////////////////////////////
-
-                    for (int j = 0; j < EnemyDice.Length; j++)
-                    {
-                        if (EnemyDice[j].behave == "Charge" && EnemyDice[j].isUsed == false)// have attack relate dice
-                        {
-                            while (true)
-                            {
-                                int randomEnemy = Random.Range(0, EnemyList.Count - 1);
-                                if (EnemyList[randomEnemy] == null)
-                                {
-                                    randomEnemy = Random.Range(0, EnemyList.Count - 1);
-                                }
-                                else
-                                {
-                                    EnemyList[randomEnemy].EnemyMoveTo(PlayerList);
-                                    break;
-                                }
-                            }
-
-
-                            EnemyDice[j].isUsed = true;
-                            return;
-                        }
-                    }
-
-
 
                     /////////////////////////////Effect/////////////////////////////////
                     for (int j = 0; j < EnemyDice.Length; j++)
@@ -378,5 +387,38 @@ public class TurnManager : MonoBehaviour
         }
 
         return true;    
+    }
+
+    private IEnumerator checkChargeAttack(int randomIndex, int diceIndex )
+    {
+        yield return new WaitForSeconds(3f);
+        if (EnemyList[randomIndex].CheckForPlayer(EnemyList[randomIndex].attackRange + EnemyList[randomIndex].movement) == true && EnemyList[randomIndex].isMoving == false)
+        {
+
+            Debug.Log("Enemy try to attack");
+            int targetIndex = 0;
+            int targetHealth = int.MaxValue;
+            for (int k = 0; k < EnemyList[randomIndex].nearByPlayer.Count - 1; k++)
+            {
+                if (EnemyList[randomIndex].nearByPlayer[k].health > targetHealth)
+                {
+                    targetHealth = EnemyList[randomIndex].nearByPlayer[k].health;
+                    targetIndex = k;
+                }
+            }
+            EnemyList[randomIndex].nearByPlayer[targetIndex].health -= EnemyList[randomIndex].attackDamage;
+
+            EnemyDice[diceIndex].isUsed = true;
+            
+
+            yield break;
+        }
+        else
+        {
+            Debug.Log("Enemy chargeFinsh");
+            EnemyDice[diceIndex].isUsed = true;
+            yield break;
+
+        }
     }
 }
