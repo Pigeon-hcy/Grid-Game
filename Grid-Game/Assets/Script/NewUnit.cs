@@ -6,6 +6,9 @@ using UnityEngine;
 [CreateAssetMenu]
 public class NewUnit : ScriptableObject
 {
+    [Tooltip("Name")]
+    public string UnitName;
+
     [Tooltip("Health")]
     public int Health;
 
@@ -28,6 +31,7 @@ public class NewUnit : ScriptableObject
 
     [Tooltip("Effect")]
     public string effectName;
+    public string effectExplain;
 
 }
 

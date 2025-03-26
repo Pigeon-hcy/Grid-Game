@@ -8,6 +8,8 @@ TagManager:
   - GridManager
   - TurnManager
   - Loader
+  - ToolTipManager
+  - RB
   layers:
   - Default
   - TransparentFX

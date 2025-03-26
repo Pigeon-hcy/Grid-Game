@@ -1939,12 +1939,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Playersunits: []
   Enemyunits:
-  - {fileID: 11400000, guid: 7ed2205949239594d83082b0d4d030d8, type: 2}
-  - {fileID: 11400000, guid: 7ed2205949239594d83082b0d4d030d8, type: 2}
-  - {fileID: 11400000, guid: 7ed2205949239594d83082b0d4d030d8, type: 2}
-  - {fileID: 11400000, guid: 7ed2205949239594d83082b0d4d030d8, type: 2}
-  - {fileID: 11400000, guid: 7ed2205949239594d83082b0d4d030d8, type: 2}
-  readyButton: {fileID: 1188158928}
+  - {fileID: 11400000, guid: e2df933c10fac444ebbb2ef40aa94cb5, type: 2}
+  - {fileID: 11400000, guid: e2df933c10fac444ebbb2ef40aa94cb5, type: 2}
+  - {fileID: 11400000, guid: e2df933c10fac444ebbb2ef40aa94cb5, type: 2}
+  - {fileID: 11400000, guid: e2df933c10fac444ebbb2ef40aa94cb5, type: 2}
+  - {fileID: 11400000, guid: e2df933c10fac444ebbb2ef40aa94cb5, type: 2}
+  readyButton: {fileID: 0}
+  gameStart: 0
 --- !u!4 &1065863795
 Transform:
   m_ObjectHideFlags: 0
@@ -1974,11 +1975,11 @@ GameObject:
   - component: {fileID: 1188158930}
   m_Layer: 5
   m_Name: Button
-  m_TagString: Untagged
+  m_TagString: RB
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1188158929
 RectTransform:
   m_ObjectHideFlags: 0

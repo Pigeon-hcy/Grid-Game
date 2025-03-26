@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+    public string Name;
+
     public bool selected;
     
     public GameManager gameManager;
@@ -29,6 +31,7 @@ public class Unit : MonoBehaviour
     [Header("Combat")]
     [SerializeField]
     public int health;
+    public int maxHealth;
     public int attackRange;
     [SerializeField]
     public int attackDamage;
@@ -44,14 +47,22 @@ public class Unit : MonoBehaviour
     [Header("UnitEffect")]
     [SerializeField] List<ScriptableObject> listOfAbility = new List<ScriptableObject>();
     string effectName;
+    public string EffectExplain;
 
     [Header("Animator")]
     [SerializeField]
     Animator animator;
 
+    [Header("isenemy")]
+    [SerializeField]
+    GameObject enemy;
+    [SerializeField]
+    GameObject player;
 
     private void Start()
     {
+        
+        
         animator = GetComponent<Animator>();
         animator.runtimeAnimatorController = newUnit.AnimatorController;
         locateTile.unitOnTile = true;
@@ -61,12 +72,36 @@ public class Unit : MonoBehaviour
             GetComponent<SpriteRenderer>().sprite = newUnit.Sprite;
         else
             GetComponent<SpriteRenderer>().sprite = newUnit.EnemySprite;
+        Name = newUnit.UnitName;
         movement = newUnit.Movement;
         health = newUnit.Health;
+        maxHealth = newUnit.Health;
         attackRange = newUnit.AttackRange;
         attackDamage = newUnit.Attack;
         effectName = newUnit.effectName;
+        EffectExplain = newUnit.effectExplain;
         gridManager = GameObject.FindGameObjectWithTag("GridManager").GetComponent<GridManager>();
+
+        if (isEnemy == true)
+        {
+            enemy.SetActive(true);
+        }
+        else if (isEnemy == false) {
+        
+            player.SetActive(true);
+        }
+    }
+
+    private void Update()
+    {
+        if (isEnemy == false && health <= 0)
+        {
+
+                turnManager.PlayerList.Remove(this);
+            
+
+            Destroy(this.gameObject);
+        }
     }
 
     public void useEffect()

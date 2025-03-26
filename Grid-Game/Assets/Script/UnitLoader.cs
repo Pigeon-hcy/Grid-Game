@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
+using static UnityEngine.GraphicsBuffer;
 
 public class UnitLoader : MonoBehaviour
 {
@@ -12,11 +14,13 @@ public class UnitLoader : MonoBehaviour
     [SerializeField]
     public List<NewUnit> Enemyunits = new List<NewUnit>();
 
-    [SerializeField]
-    GameObject readyButton;
+    public GameObject readyButton;
+    public bool gameStart;
 
     private void Awake()
     {
+
+        
         if (Instance == null)
         {
             Instance = this;
@@ -28,11 +32,19 @@ public class UnitLoader : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        readyButton = GameObject.FindGameObjectWithTag("RB");
+        Debug.Log(readyButton);
+
+    }
+
     private void Update()
     {
-        if (Playersunits.Count == 5 && readyButton != null)
+        if (Playersunits.Count == 5 && gameStart == false)
         {
-            readyButton.SetActive(true);
+            SceneManager.LoadScene("SampleScene");
+            gameStart = true;   
         }
     }
 

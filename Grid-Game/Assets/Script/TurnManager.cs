@@ -4,7 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
-
+using UnityEngine.SceneManagement;
 public class TurnManager : MonoBehaviour
 {
     [SerializeField]
@@ -47,6 +47,11 @@ public class TurnManager : MonoBehaviour
     [SerializeField]
     GridManager gridManager;
 
+    [SerializeField]
+    string RestartScreenName;
+    
+    UnitLoader UnitLoader;
+
 
     // Start is called before the first frame update
     void Start()
@@ -54,7 +59,7 @@ public class TurnManager : MonoBehaviour
         turnStage = gameStage.turnStart;
         
         StartCoroutine(turnFlow());
-
+        
 
     }
 
@@ -62,6 +67,14 @@ public class TurnManager : MonoBehaviour
     void Update()
     {
         text.text = "Current Move " + currentBehave;
+
+        if (EnemyList.Count == 0 || PlayerList.Count == 0)
+        {
+            UnitLoader.Instance.Playersunits.Clear();
+            UnitLoader.Instance.gameStart = false;
+            SceneManager.LoadScene(0);
+            
+        }
     }
 
 
