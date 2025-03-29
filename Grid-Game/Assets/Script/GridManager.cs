@@ -313,6 +313,7 @@ public class GridManager : MonoBehaviour
 
     public void StartMovingMode()
     {
+        Debug.Log("gameManager.selectedUnit.movement" + gameManager.selectedUnit.movement);
         inMovingMode = true;
         List<Tile> reachableGrids = CalculateReachableGrids(gameManager.selectedUnit.locateTile, gameManager.selectedUnit.movement);
         foreach (Tile Tile in reachableGrids)
@@ -343,6 +344,7 @@ public class GridManager : MonoBehaviour
     //Show the where is the avaliable block
     private List<AStarNode> RetracePath(AStarNode startNode, AStarNode endNode, int actionPoint)
     {
+        Debug.Log("actionPoint = " + actionPoint);
         // Create an empty list to store the path
         List<AStarNode> path = new List<AStarNode>();
         AStarNode currentNode = endNode;
@@ -354,7 +356,10 @@ public class GridManager : MonoBehaviour
         }
         // Reverse the path so it starts from the starting location
         path.Reverse();
-        return path;
+        List<AStarNode> returnpath = new List<AStarNode>();
+        returnpath = path.GetRange(0, actionPoint);
+
+        return returnpath;
         // Hide the pathfinding visualization for all grid units
         //foreach (Tile gridUnit in gridUnitList)
         //{

@@ -64,6 +64,7 @@ public class Tile : MonoBehaviour
 
     private void OnMouseOver()
     {
+        Debug.Log("MouseOver");
         HighLightCover.SetActive(true);
     }
 

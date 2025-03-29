@@ -525,14 +525,15 @@ public class Unit : MonoBehaviour
             {
                 continue;
             }
+            path = gridManager.CalculatePathfinding(locateTile, players[i].locateTile, movement);
 
-            path = gridManager.CalculatePathfinding(locateTile, players[i].locateTile, int.MaxValue);
             if (path != null && path.Count > 0 && path.Count < shortest)
             {
                 
                 shortest = path.Count;
                 nearest = players[i];
             }
+          
         }
 
         return nearest.locateTile;
