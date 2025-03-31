@@ -75,6 +75,13 @@ public class TurnManager : MonoBehaviour
             SceneManager.LoadScene(0);
             
         }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            UnitLoader.Instance.Playersunits.Clear();
+            UnitLoader.Instance.gameStart = false;
+            SceneManager.LoadScene(0);
+        }
     }
 
 
