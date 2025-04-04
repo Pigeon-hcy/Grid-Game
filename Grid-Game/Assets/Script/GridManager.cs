@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -344,6 +345,7 @@ public class GridManager : MonoBehaviour
     private List<AStarNode> RetracePath(AStarNode startNode, AStarNode endNode, int actionPoint)
     {
         Debug.Log("actionPoint = " + actionPoint);
+
         // Create an empty list to store the path
         List<AStarNode> path = new List<AStarNode>();
         AStarNode currentNode = endNode;
@@ -356,7 +358,18 @@ public class GridManager : MonoBehaviour
         // Reverse the path so it starts from the starting location
         path.Reverse();
         List<AStarNode> returnpath = new List<AStarNode>();
-        returnpath = path.GetRange(0, actionPoint);
+        Debug.Log("returnpath = " + returnpath.Count);
+        if (path.Count >= actionPoint)
+        {
+            Debug.Log("USING ranged");
+            returnpath = path.GetRange(0, actionPoint);
+        }
+        else if (path.Count < actionPoint) 
+        {
+            Debug.Log("USING ALL");
+            returnpath = path;
+        }
+        
 
         return returnpath;
         // Hide the pathfinding visualization for all grid units
