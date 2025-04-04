@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Unit : MonoBehaviour
 {
@@ -95,12 +96,15 @@ public class Unit : MonoBehaviour
     {
         if (isEnemy == false && health <= 0)
         {
-
-                turnManager.PlayerList.Remove(this);
-            
-
-            Destroy(this.gameObject);
+                turnManager.PlayerList.Remove(this);   
+                Destroy(this.gameObject);
         }
+        if (isEnemy == true && health <= 0)
+        {
+            turnManager.EnemyList.Remove(this);
+            Destroy (this.gameObject);
+        }
+
     }
 
     public void useEffect()
@@ -154,7 +158,7 @@ public class Unit : MonoBehaviour
             //move the unit
             target.unitOnTile = true;
             locateTile.playerOnIt = true;
-            StartCoroutine(MovePlayer(target.transform.position));
+            StartCoroutine(ChargePlayer(target.transform.position, attackDamage));
             gridManager.ResetTile();
         }
         else
@@ -404,7 +408,7 @@ public class Unit : MonoBehaviour
 
 
             //Debug.Log(path[i].GCost);
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.1f);
         }
     }
     private IEnumerator MovePlayer(Vector3 targetPos)
@@ -426,6 +430,66 @@ public class Unit : MonoBehaviour
 
         //CheckForEnemies(attackRange);
         isMoving = false;
+    }
+
+    private IEnumerator ChargePlayer(Vector3 targetPos, int attackDamage)
+    {
+        isMoving = true;
+
+        Vector3 originPos = transform.position;
+
+        float elapsedTime = 0;
+
+        while (elapsedTime < timeToMove)
+        {
+            transform.position = Vector3.Lerp(originPos, targetPos, elapsedTime / timeToMove);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        
+
+        isMoving = false;
+
+
+        
+        ///////////////////////////////
+        transform.position = targetPos;
+
+        List<Vector3> attackOffsets = new List<Vector3>();
+
+        for (int x = -1; x <= 1; x++)
+        {
+            for (int y = -1; y <= 1; y++)
+            {
+                if (Mathf.Abs(x) + Mathf.Abs(y) <= 1 && !(x == 0 && y == 0))
+                {
+                    attackOffsets.Add(new Vector3(x, y, 0));
+                }
+            }
+        }
+        Vector3[] attackOffsetsArray = attackOffsets.ToArray();
+
+        foreach (Vector3 offset in attackOffsets)
+        {
+            Debug.Log("CCK");
+            Vector3 checkPos = transform.position + offset;
+            //Collider2D hit = Physics2D.OverlapCircle(checkPos, 0.1f); // Check for unit presence
+            Vector2 boxSize = new Vector2(0.9f, 0.9f); // Adjust based on the true tile size, for now just assume grid 1 *1
+            Collider2D hit = Physics2D.OverlapBox(checkPos, boxSize, 0f);
+
+            if (hit != null)
+            {
+                Unit nearbyUnit = hit.GetComponent<Unit>();
+                if (nearbyUnit != null && nearbyUnit.isEnemy /*&& turnManager.currentBehave == "Attack"*/) // Found an enemy nearby
+                {
+                    Debug.Log("HIT");
+                    nearbyUnit.health -= attackDamage;
+                    break;
+                }
+            }
+        }
+
+        ////////////////////////
     }
 
 

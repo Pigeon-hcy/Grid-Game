@@ -47,14 +47,9 @@ public class GameManager : MonoBehaviour
                         selectedUnit.ChargeTo(targetTile);
                         turnManager.currentBehave = null;
                         selectedDice.isUsed = true;
-                        if (selectedUnit.CheckForEnemies(selectedUnit.attackRange) == true)
-                        {
-                            turnManager.currentBehave = "Attack";
-                        }
-                        else
-                        {
-                            turnManager.excuteTheBehave();
-                        }
+                        
+                        turnManager.excuteTheBehave();
+                        
 
                     }
 

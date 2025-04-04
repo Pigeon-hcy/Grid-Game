@@ -415,8 +415,8 @@ public class TurnManager : MonoBehaviour
 
     private IEnumerator checkChargeAttack(int randomIndex, int diceIndex )
     {
-        yield return new WaitForSeconds(3f);
-        if (EnemyList[randomIndex].CheckForPlayer(EnemyList[randomIndex].attackRange) == true && EnemyList[randomIndex].isMoving == false)
+        yield return new WaitForSeconds(1.5f);
+        if (EnemyList[randomIndex].CheckForPlayer(1) == true && EnemyList[randomIndex].isMoving == false)
         {
             EnemyList[randomIndex].drawAttackRange();
             Debug.Log("Enemy try to attack");
