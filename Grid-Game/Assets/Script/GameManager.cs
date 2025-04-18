@@ -14,9 +14,35 @@ public class GameManager : MonoBehaviour
     public TurnManager turnManager;
     public GameManager gameManager;
     bool showPannel;
-
+    public bool isChoosingATarget;
     private void Update()
     {
+        if (Input.GetMouseButtonDown(1))
+        {
+
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D[] hit = Physics2D.RaycastAll(mousePosition, Vector2.zero);
+
+            if (hit.Length > 0 && showPannel == false)
+            {
+                Debug.Log("SHow");
+                RaycastHit2D closestHit = hit.OrderBy(h => Vector2.Distance(h.point, mousePosition)).First();
+                Unit clickedUnit = closestHit.collider.GetComponent<Unit>();
+                toolTipManagert.Instance.setAndShow(clickedUnit.Name, clickedUnit.maxHealth, clickedUnit.health, clickedUnit.movement, clickedUnit.attackDamage, clickedUnit.attackRange, clickedUnit.EffectExplain);
+                showPannel = true;
+            }
+            else if (showPannel == true)
+            {
+                showPannel = false;
+                toolTipManagert.Instance.hide();
+            }
+
+
+        }
+        if (isChoosingATarget)
+        { 
+            return;
+        }
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -132,28 +158,7 @@ public class GameManager : MonoBehaviour
         }
         
         
-        if (Input.GetMouseButtonDown(1))
-        {
-            
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D[] hit = Physics2D.RaycastAll(mousePosition, Vector2.zero);
-
-            if (hit.Length > 0 && showPannel == false)
-            {
-                Debug.Log("SHow");
-                RaycastHit2D closestHit = hit.OrderBy(h => Vector2.Distance(h.point, mousePosition)).First();
-                Unit clickedUnit = closestHit.collider.GetComponent<Unit>();
-                toolTipManagert.Instance.setAndShow(clickedUnit.Name, clickedUnit.maxHealth, clickedUnit.health, clickedUnit.movement, clickedUnit.attackDamage, clickedUnit.attackRange, clickedUnit.EffectExplain);
-                showPannel = true;
-            }
-            else if (showPannel == true)
-            {
-                showPannel = false;
-                toolTipManagert.Instance.hide();
-            }
-          
-
-        }
+        
     }
 
 }
