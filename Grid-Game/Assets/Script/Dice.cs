@@ -17,6 +17,8 @@ public class Dice : MonoBehaviour
     public GameObject Cover;
     [SerializeField]
     public bool isEnemy;
+    [SerializeField]
+    Sprite chargediceFace;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +48,12 @@ public class Dice : MonoBehaviour
         isUsed = false;
         behave = diceFace[diceIndex];
 
+    }
+
+    public void turnInToCharge()
+    {
+        behave = "Charge";
+        GetComponent<SpriteRenderer>().sprite = chargediceFace;
     }
 
 }

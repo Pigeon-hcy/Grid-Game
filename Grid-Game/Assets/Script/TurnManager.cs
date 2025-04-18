@@ -21,13 +21,13 @@ public class TurnManager : MonoBehaviour
 
     public gameStage turnStage;
     [SerializeField]
-    Dice[] Playerdices =
+    public Dice[] Playerdices =
     {
         
     };
 
     [SerializeField]
-    Dice[] EnemyDice =
+    public Dice[] EnemyDice =
     {
 
     };

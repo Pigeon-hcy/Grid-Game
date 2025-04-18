@@ -672,6 +672,7 @@ MonoBehaviour:
   isUsed: 0
   Cover: {fileID: 572484982}
   isEnemy: 0
+  chargediceFace: {fileID: 21300000, guid: 37d03c4c3387e0d49baf61fcbc944a01, type: 3}
 --- !u!212 &216330902
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4345,6 +4346,7 @@ MonoBehaviour:
   isUsed: 0
   Cover: {fileID: 2081694026}
   isEnemy: 1
+  chargediceFace: {fileID: 21300000, guid: 37d03c4c3387e0d49baf61fcbc944a01, type: 3}
 --- !u!212 &343915475
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4836,6 +4838,7 @@ MonoBehaviour:
   isUsed: 0
   Cover: {fileID: 1832925403}
   isEnemy: 1
+  chargediceFace: {fileID: 21300000, guid: 37d03c4c3387e0d49baf61fcbc944a01, type: 3}
 --- !u!212 &450410023
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7403,6 +7406,7 @@ MonoBehaviour:
   isUsed: 0
   Cover: {fileID: 1215259542}
   isEnemy: 1
+  chargediceFace: {fileID: 21300000, guid: 37d03c4c3387e0d49baf61fcbc944a01, type: 3}
 --- !u!212 &1127199294
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7606,6 +7610,7 @@ MonoBehaviour:
   isUsed: 0
   Cover: {fileID: 1141265755}
   isEnemy: 0
+  chargediceFace: {fileID: 21300000, guid: 37d03c4c3387e0d49baf61fcbc944a01, type: 3}
 --- !u!212 &1139312579
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7854,6 +7859,7 @@ MonoBehaviour:
   isUsed: 0
   Cover: {fileID: 372687084}
   isEnemy: 0
+  chargediceFace: {fileID: 21300000, guid: 37d03c4c3387e0d49baf61fcbc944a01, type: 3}
 --- !u!212 &1158049414
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8749,6 +8755,7 @@ MonoBehaviour:
   skipButton: {fileID: 768517678}
   text: {fileID: 785106014}
   gridManager: {fileID: 1759195099}
+  RestartScreenName: 
 --- !u!4 &1426587585
 Transform:
   m_ObjectHideFlags: 0
@@ -9884,6 +9891,7 @@ MonoBehaviour:
   isUsed: 0
   Cover: {fileID: 1335589761}
   isEnemy: 0
+  chargediceFace: {fileID: 21300000, guid: 37d03c4c3387e0d49baf61fcbc944a01, type: 3}
 --- !u!212 &1851620573
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10366,6 +10374,7 @@ MonoBehaviour:
   isUsed: 0
   Cover: {fileID: 793107556}
   isEnemy: 1
+  chargediceFace: {fileID: 21300000, guid: 37d03c4c3387e0d49baf61fcbc944a01, type: 3}
 --- !u!212 &1894977029
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11073,6 +11082,7 @@ MonoBehaviour:
   isUsed: 0
   Cover: {fileID: 1557415897}
   isEnemy: 0
+  chargediceFace: {fileID: 21300000, guid: 37d03c4c3387e0d49baf61fcbc944a01, type: 3}
 --- !u!212 &2080367651
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11366,6 +11376,7 @@ MonoBehaviour:
   isUsed: 0
   Cover: {fileID: 1135845466}
   isEnemy: 1
+  chargediceFace: {fileID: 21300000, guid: 37d03c4c3387e0d49baf61fcbc944a01, type: 3}
 --- !u!212 &2100524152
 SpriteRenderer:
   m_ObjectHideFlags: 0

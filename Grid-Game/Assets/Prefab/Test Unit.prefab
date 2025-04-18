@@ -118,7 +118,15 @@ MonoBehaviour:
   nearByPlayer: []
   locateTile: {fileID: 0}
   listOfAbility:
-  - {fileID: 11400000, guid: b58dd24eadac21f40bb618da33a83ae1, type: 2}
+  - {fileID: 11400000, guid: 42a29189ff1245e42a4a15ee075aeeda, type: 2}
+  - {fileID: 11400000, guid: 0a632de9b585c0f4f84560d9a37bcd7b, type: 2}
+  - {fileID: 11400000, guid: e42b1a6accab3304c96b1356d37f0b53, type: 2}
+  - {fileID: 11400000, guid: c4476a31dbacbe64d85c93a25db70044, type: 2}
+  - {fileID: 11400000, guid: 8e89c26a8f0915b4ca00d6cfae1e6886, type: 2}
+  - {fileID: 11400000, guid: 95b72072b92d4764685a9592e1ad54c2, type: 2}
+  - {fileID: 11400000, guid: 7cf90b233daaacd4a9611814e5bcdc1c, type: 2}
+  - {fileID: 11400000, guid: 01c3048fed0adbf4b9b549a6c3ea95aa, type: 2}
+  - {fileID: 11400000, guid: 8e09cf20b67dbf74bb4071de1511afb2, type: 2}
   EffectExplain: 
   animator: {fileID: 0}
   enemy: {fileID: 8995538112626647256}

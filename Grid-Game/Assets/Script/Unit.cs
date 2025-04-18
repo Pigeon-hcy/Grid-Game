@@ -26,7 +26,7 @@ public class Unit : MonoBehaviour
     [SerializeField]
     GridManager gridManager;
     [SerializeField]
-    TurnManager turnManager;
+    public TurnManager turnManager;
 
     [Header("Combat")]
     [SerializeField]
@@ -111,10 +111,59 @@ public class Unit : MonoBehaviour
     {
         switch (effectName)
         {
-            case "selfHealing":
+
+            case "Revenge":
                 (listOfAbility[0] as unitAbility)?.useEffect(this);
                 turnManager.excuteTheBehave();
-                Debug.Log("Self Heal");
+                Debug.Log("Revenge");
+                break;
+
+            case "Wild Grow":
+                (listOfAbility[1] as unitAbility)?.useEffect(this);
+                turnManager.excuteTheBehave();
+                Debug.Log("Wild Grow");
+                break;
+
+            case "FireUp":
+                (listOfAbility[2] as unitAbility)?.useEffect(this);
+                turnManager.excuteTheBehave();
+                Debug.Log("FireUp");
+                break;
+
+            case "Slime Storm":
+                (listOfAbility[3] as unitAbility)?.useEffect(this);
+                turnManager.excuteTheBehave();
+                Debug.Log("Slime Storm");
+                break;
+
+            case "Slag Storm":
+                (listOfAbility[4] as unitAbility)?.useEffect(this);
+                turnManager.excuteTheBehave();
+                Debug.Log("Slag Storm");
+                break;
+
+            case "Earth Shield":
+                (listOfAbility[5] as unitAbility)?.useEffect(this);
+                turnManager.excuteTheBehave();
+                Debug.Log("Earth Shield");
+                break;
+
+            case "Ice nova":
+                (listOfAbility[6] as unitAbility)?.useEffect(this);
+                turnManager.excuteTheBehave();
+                Debug.Log("Ice nova");
+                break;
+
+            case "Reroll":
+                (listOfAbility[7] as unitAbility)?.useEffect(this);
+                turnManager.excuteTheBehave();
+                Debug.Log("Reroll");
+                break;
+
+            case "Heart of Wild":
+                (listOfAbility[8] as unitAbility)?.useEffect(this);
+                turnManager.excuteTheBehave();
+                Debug.Log("Heart of Wild");
                 break;
 
             default:
