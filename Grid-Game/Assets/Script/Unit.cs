@@ -97,11 +97,13 @@ public class Unit : MonoBehaviour
         if (isEnemy == false && health <= 0)
         {
                 turnManager.PlayerList.Remove(this);   
+                gameManager.gridManager.vectorToTile(this.transform.position).unitOnTile = false;
                 Destroy(this.gameObject);
         }
         if (isEnemy == true && health <= 0)
         {
             turnManager.EnemyList.Remove(this);
+            gameManager.gridManager.vectorToTile(this.transform.position).unitOnTile = false;
             Destroy (this.gameObject);
         }
 
@@ -167,7 +169,42 @@ public class Unit : MonoBehaviour
                 break;
 
 
+            case "Anger":
+                (listOfAbility[9] as unitAbility)?.useEffect(this);
+                turnManager.excuteTheBehave();
+                Debug.Log("Anger");
+                break;
 
+
+            case "WindBlow":
+                (listOfAbility[10] as unitAbility)?.useEffect(this);
+                turnManager.excuteTheBehave();
+                Debug.Log("WindBlow");
+                break;
+
+            case "Charge":
+                (listOfAbility[11] as unitAbility)?.useEffect(this);
+                turnManager.excuteTheBehave();
+                Debug.Log("Charge");
+                break;
+
+            case "Pull":
+                (listOfAbility[12] as unitAbility)?.useEffect(this);
+                turnManager.excuteTheBehave();
+                Debug.Log("Pull");
+                break;
+
+            case "Push":
+                (listOfAbility[13] as unitAbility)?.useEffect(this);
+                turnManager.excuteTheBehave();
+                Debug.Log("Push");
+                break;
+
+            case "Eye Beam":
+                (listOfAbility[14] as unitAbility)?.useEffect(this);
+                turnManager.excuteTheBehave();
+                Debug.Log("Eye Beam");
+                break;
             default:
                 turnManager.excuteTheBehave();
                 Debug.Log("No Skill");
@@ -185,7 +222,7 @@ public class Unit : MonoBehaviour
             locateTile.playerOnIt = false;
             //move the unit
             target.unitOnTile = true;
-            locateTile.playerOnIt = true;
+            target.playerOnIt = true;
             StartCoroutine(MovePlayer(target.transform.position));
             gridManager.ResetTile();
             turnManager.excuteTheBehave();
@@ -193,6 +230,42 @@ public class Unit : MonoBehaviour
         else
         {
             gridManager.ResetTile();
+            return;
+        }
+    }
+
+    public void EffectMoveTo(Tile target)
+    {
+        if (target.unitOnTile == false)
+        {
+            locateTile.unitOnTile = false;
+            locateTile.playerOnIt = false;
+            locateTile = target;
+            //move the unit
+            target.unitOnTile = true;
+            target.playerOnIt = true;
+            StartCoroutine(MovePlayer(target.transform.position));
+            gridManager.ResetTile();
+        }
+        else
+        {
+            gridManager.ResetTile();
+            return;
+        }
+    }
+
+    public void enemyMoveToEffect(Tile target)
+    {
+        if (target.unitOnTile == false)
+        {
+            locateTile.unitOnTile = false;
+            locateTile = target;
+            //move the unit
+            target.unitOnTile = true;
+            StartCoroutine(MovePlayer(target.transform.position));
+        }
+        else
+        {
             return;
         }
     }

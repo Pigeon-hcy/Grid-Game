@@ -6,20 +6,48 @@ using UnityEngine;
 public class payback : ScriptableObject, unitAbility
 {
     public int anger = 10;
-    public void useEffect(Unit target1, Unit target2)
+    
+    public void useEffect(Unit target)
     {
-        if (target1.isEnemy == false)
+        float localDistrance = int.MaxValue;
+        int index = 0;
+        if (target.isEnemy == false)
         {
-            if (target1.isEnemy != target2.isEnemy)
+            for (int i = 0; i < target.turnManager.EnemyList.Count; i++)
             {
-                target2.health -= Mathf.Min(0, (anger - target1.health));
+                float distance = Vector2.Distance(target.transform.position, target.turnManager.EnemyList[i].transform.position);
+                if (distance < localDistrance)
+                {
+                    localDistrance = distance;
+                    index = i;
+                }
+                else
+                { 
+                    continue;
+                }
             }
+
+            target.turnManager.EnemyList[index].health -= Mathf.Max(anger - target.health, 0);
         }
-        else if (target1.isEnemy == true)
+
+
+        else if (target.isEnemy == true)
         {
-            int random;
-            random = Random.Range(0, target1.turnManager.PlayerList.Count);
-            target1.turnManager.PlayerList[random].health -= Mathf.Min(0, (anger - target1.health));
+            for (int i = 0; i < target.turnManager.PlayerList.Count; i++)
+            {
+                float distance = Vector2.Distance(target.transform.position, target.turnManager.PlayerList[i].transform.position);
+                if (distance < localDistrance)
+                {
+                    localDistrance = distance;
+                    index = i;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+
+            target.turnManager.PlayerList[index].health -= Mathf.Max(anger - target.health, 0);
         }
     }
 }

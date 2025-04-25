@@ -128,6 +128,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 01c3048fed0adbf4b9b549a6c3ea95aa, type: 2}
   - {fileID: 11400000, guid: 8e09cf20b67dbf74bb4071de1511afb2, type: 2}
   - {fileID: 11400000, guid: 90009522fc7fed3408f9e833a35a7ee5, type: 2}
+  - {fileID: 11400000, guid: b993b1aff0918d14f8603ef746630ad4, type: 2}
+  - {fileID: 11400000, guid: 3844ca909d81472469c900fe493cb126, type: 2}
+  - {fileID: 11400000, guid: 4250cfde9addfd840b11e5e0a76f0583, type: 2}
+  - {fileID: 11400000, guid: ff080be8a82797146864bb8df6fb62ae, type: 2}
+  - {fileID: 11400000, guid: 82c7bd244006cb04a9208ea36684d461, type: 2}
   EffectExplain: 
   animator: {fileID: 0}
   enemy: {fileID: 8995538112626647256}
