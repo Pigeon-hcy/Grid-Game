@@ -63,15 +63,15 @@ public class Unit : MonoBehaviour
     {
         
         
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         animator.runtimeAnimatorController = newUnit.AnimatorController;
         locateTile.unitOnTile = true;
         turnManager = GameObject.FindGameObjectWithTag("TurnManager").GetComponent<TurnManager>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         if(isEnemy == false)
-            GetComponent<SpriteRenderer>().sprite = newUnit.Sprite;
+            GetComponentInChildren<SpriteRenderer>().sprite = newUnit.Sprite;
         else
-            GetComponent<SpriteRenderer>().sprite = newUnit.EnemySprite;
+            GetComponentInChildren<SpriteRenderer>().sprite = newUnit.EnemySprite;
         Name = newUnit.UnitName;
         movement = newUnit.Movement;
         health = newUnit.Health;
