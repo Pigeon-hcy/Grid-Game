@@ -229,9 +229,10 @@ public class TurnManager : MonoBehaviour
 
     private void enemyThinkMove()
     {
-        
+        Debug.Log("Thinking move!");
         for (int i = 0; i < EnemyList.Count; i++)
         {
+            Debug.Log("Do for" + i);
             if (EnemyList[i] != null)
             {
                 //////////////////////////////TODO Charge/////////////////////////////////
@@ -253,15 +254,17 @@ public class TurnManager : MonoBehaviour
                             }
                             else
                             {
-                                Debug.Log("Enemy try to move");
+                                Debug.Log("Enemy try to move due to charge");
                                 EnemyList[randomEnemy].EnemyMoveTo(PlayerList);
+                                Debug.Log("Enemy try to attack after charge");
                                 StartCoroutine(checkChargeAttack(randomIndex, j));
+                                EnemyList[randomEnemy].animator.SetTrigger("Attack");
                                 isCharing = false;
                                 break;
                             }
 
 
-                        Debug.Log("Return");
+                        Debug.Log("Return" + i);
                         return;
                         ///////////////Attack//////////////////
 
@@ -289,10 +292,13 @@ public class TurnManager : MonoBehaviour
                                     targetIndex = k;
                                 }
                             }
+                            EnemyList[i].animator.SetTrigger("Attack");
                             EnemyList[i].nearByPlayer[targetIndex].health -= EnemyList[i].attackDamage;
                             gridManager.ResetTile();
                             EnemyDice[j].isUsed = true;
+                            Debug.Log("Return" + i);
                             return;
+                            
                         }
                     }
                 }
@@ -320,6 +326,7 @@ public class TurnManager : MonoBehaviour
                             
                             Debug.Log("Enemy try to move");
                             EnemyDice[j].isUsed = true;
+                            Debug.Log("Return" + i);
                             return;
                         }
                     }
@@ -342,8 +349,8 @@ public class TurnManager : MonoBehaviour
                             }
 
 
-                            Debug.Log("Enemy try to use effect");
                             EnemyDice[j].isUsed = true;
+                            Debug.Log("Return" + i);
                             return;
                         }
                     }
@@ -365,7 +372,7 @@ public class TurnManager : MonoBehaviour
 
                     for (int j = 0; j < EnemyDice.Length; j++)
                     {
-                        if (EnemyDice[j].isUsed == false)// have attack relate dice
+                        if (EnemyDice[j].isUsed == false && EnemyDice[j].behave != "Effect")// have attack relate dice
                         {
                             Debug.Log("skip");
                             EnemyDice[j].isUsed = true;

@@ -559,13 +559,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 59509379}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -8.0331, y: -4.0143, z: 0}
   m_LocalScale: {x: 1.2905072, y: 1.3195844, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &80918725
 GameObject:
   m_ObjectHideFlags: 0
@@ -978,6 +978,7 @@ MonoBehaviour:
   description: 'Health: 18. Attack: 3. Range: 1. Movement: 2. Ability: Rain of acid
     - Randomly deal (3-5) points of damage to (3-5) units (regardless of friend or
     enemy).'
+  dice: Attack/Empty/Empty/Effect/Effect/Move
 --- !u!1 &309043446
 GameObject:
   m_ObjectHideFlags: 0
@@ -1336,6 +1337,7 @@ MonoBehaviour:
   Unit_name: Ice Element
   description: 'Health: 22. Attack: 3. Range: 2. Movement: 2. Ability: Ice Shard
     - Deal 3 points of damage to enemies in the surrounding 3x3 area.'
+  dice: Attack/Attack/Empty/Move/Charge/Effect
 --- !u!1 &441332333
 GameObject:
   m_ObjectHideFlags: 0
@@ -1502,6 +1504,7 @@ MonoBehaviour:
   Unit_name: Earth Element
   description: 'Health: 30. Attack: 3. Range: 1. Movement: 2. Ability: Buildup -
     Add 3 Health to surrounding units.'
+  dice: Attack/Attack/Empty/Move/Charge/Effect
 --- !u!1 &470243995
 GameObject:
   m_ObjectHideFlags: 0
@@ -1805,6 +1808,7 @@ MonoBehaviour:
   Unit_name: The Looker
   description: 'Health: 13. Attack: 3. Range: 2. Movement: 1. Ability: Looker Beam
     - Deal 5 damge to all unit in front of it '
+  dice: Attack/Empty/Empty/Effect/Effect/Move
 --- !u!1 &522147239
 GameObject:
   m_ObjectHideFlags: 0
@@ -1971,6 +1975,7 @@ MonoBehaviour:
   Unit_name: Griffin
   description: 'Health: 18. Attack: 3. Range: 2. Movement: 4. Ability: Wind Blow
     - deal 3 damage to all enemy and make them M-1(can''t less than 2)'
+  dice: Move/Move/Charge/Charge/Attack/Attack
 --- !u!1 &528553871
 GameObject:
   m_ObjectHideFlags: 0
@@ -2349,6 +2354,7 @@ MonoBehaviour:
   Unit_name: Eye Bat
   description: 'Health: 15. Attack: 3. Range: 1. Movement: 2. Ability: Reroll - Reroll
     the dice that you haven''t used yet.'
+  dice: Attack/Empty/Empty/Effect/Effect/Move
 --- !u!114 &613122310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2801,6 +2807,7 @@ MonoBehaviour:
   Unit_name: Dryad
   description: 'Health: 13. Attack: 2. Range: 4. Movement: 2. Ability: Pull - Push
     other friend units to the right for two gild.'
+  dice: Move/Move/Charge/Attack/Attack/Effect
 --- !u!1 &756261639
 GameObject:
   m_ObjectHideFlags: 0
@@ -2967,6 +2974,7 @@ MonoBehaviour:
   Unit_name: Hellhound
   description: 'Health: 10. Attack: 6. Range: 1. Movement: 3. Ability: Anger - Deal
     (10 - HP) damage to closest enemy.'
+  dice: Attack/Attack/Charge/Move/Move/Effect
 --- !u!1 &795805564
 GameObject:
   m_ObjectHideFlags: 0
@@ -3966,11 +3974,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Playersunits: []
   Enemyunits:
-  - {fileID: 11400000, guid: 7ed2205949239594d83082b0d4d030d8, type: 2}
-  - {fileID: 11400000, guid: 7ed2205949239594d83082b0d4d030d8, type: 2}
-  - {fileID: 11400000, guid: 866d0ae9e60002643ae286aa5f4246c9, type: 2}
-  - {fileID: 11400000, guid: 866d0ae9e60002643ae286aa5f4246c9, type: 2}
-  - {fileID: 11400000, guid: dbf55e50372a53c4c9d7a0ffdb736e29, type: 2}
+  - {fileID: 11400000, guid: 75f4a281038b1d94d907a67db12b1696, type: 2}
+  - {fileID: 11400000, guid: 9ae18f3305b60b3439939deb24fba3bc, type: 2}
+  - {fileID: 11400000, guid: d5a0c74e8dc0e944f8078cfda3cf5754, type: 2}
+  - {fileID: 11400000, guid: 75f4a281038b1d94d907a67db12b1696, type: 2}
+  - {fileID: 11400000, guid: 15d910953d95f364481398f3a3bc9ee9, type: 2}
   readyButton: {fileID: 0}
   gameStart: 0
 --- !u!4 &1065863795
@@ -4559,6 +4567,7 @@ MonoBehaviour:
   Unit_name: Dog
   description: "Health: 16. Attack: 3. Range: 1. M\uFF1A3. Ability: Dash - Dash forward
     until you hit something. If it's an enemy, deal 6 points of damage to it."
+  dice: Move/Move/Charge/Charge/Attack/Attack
 --- !u!1 &1237607662
 GameObject:
   m_ObjectHideFlags: 0
@@ -4999,6 +5008,7 @@ MonoBehaviour:
   Unit_name: Salamander
   description: 'Health: 14. Attack: 4. Range: 2. Movement: 2. Ability: Heat up -
     Deal 3 points of damage to itself, Attack+2'
+  dice: Attack/Attack/Charge/Move/Move/Effect
 --- !u!1 &1318646946
 GameObject:
   m_ObjectHideFlags: 0
@@ -5301,7 +5311,8 @@ MonoBehaviour:
   image: {fileID: 3234629978573100161, guid: 0d15e7bc593e44feb8962e74bfec7ea4, type: 3}
   Unit_name: Fire Element
   description: 'Health: 22. Attack: 2. Range: 1. Movement: 2. Ability: Fire up -
-    Change Attack to (died unit) / 2 + 1'
+    Change Attack to (died unit)/2+1.'
+  dice: Attack/Attack/Empty/Move/Charge/Effect
 --- !u!1 &1611474323
 GameObject:
   m_ObjectHideFlags: 0
@@ -5468,6 +5479,7 @@ MonoBehaviour:
   Unit_name: Boar
   description: 'Health: 15. Attack: 5. Range: 1. Movement: 2. Ability: Lead the Pack
     - Convert up to two moves dice into charges dice.'
+  dice: Attack/Attack/Charge/Move/Move/Effect
 --- !u!1 &1722460506
 GameObject:
   m_ObjectHideFlags: 0
@@ -5634,6 +5646,7 @@ MonoBehaviour:
   Unit_name: Deer
   description: 'Health: 18. Attack: 2. Range: 1. Movement: 3. Ability: Wild Grow
     - Attack+1 Movemtn+1.'
+  dice: Move/Move/Charge/Charge/Attack/Attack
 --- !u!1 &1724016486
 GameObject:
   m_ObjectHideFlags: 0
@@ -5800,6 +5813,7 @@ MonoBehaviour:
   Unit_name: Fuji
   description: 'Health: 16. Attack: 3. Range: 2. Movement: 2. Ability: Push - Push
     all enemy to the left for two gild.'
+  dice: Move/Move/Charge/Attack/Attack/Effect
 --- !u!1 &1746600413
 GameObject:
   m_ObjectHideFlags: 0
@@ -6709,7 +6723,8 @@ MonoBehaviour:
   image: {fileID: 4149154237482698375, guid: 8e43863ad75d43d7b93ae6421c4a609d, type: 3}
   Unit_name: Pumpkin
   description: 'Health: 8. Attack: 1. Range: 8. Movement: 1. Ability: Rain of Ash
-    - Deal (attack power) points of damage to all enemies, Attack+1'
+    - Deal (attack power) points of damage to all enemies, Attack+1.'
+  dice: Move/Move/Charge/Attack/Attack/Effect
 --- !u!1 &2058613567
 GameObject:
   m_ObjectHideFlags: 0

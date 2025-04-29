@@ -13,9 +13,10 @@ public class UIToolTip : MonoBehaviour, IPointerEnterHandler
     string Unit_name;
     [SerializeField]
     string description;
-
+    [SerializeField]
+    string dice;
     public void OnPointerEnter(PointerEventData eventData)
     {
-        toolM.changeTheDes(Unit_name, image, description);
+        toolM.changeTheDes(Unit_name, image, description, dice);
     }
 }

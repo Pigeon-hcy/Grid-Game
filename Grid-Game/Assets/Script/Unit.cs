@@ -51,7 +51,9 @@ public class Unit : MonoBehaviour
 
     [Header("Animator")]
     [SerializeField]
-    Animator animator;
+    public Animator animator;
+    [SerializeField]
+    bool isDead;
 
     [Header("isenemy")]
     [SerializeField]
@@ -94,17 +96,39 @@ public class Unit : MonoBehaviour
 
     private void Update()
     {
+        if (isEnemy == true)
+        {
+            this.transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+        if (isMoving == true)
+        {
+            animator.SetBool("Walk", true);
+        }
+        else
+        {
+            animator.SetBool("Walk", false);
+        }
+
         if (isEnemy == false && health <= 0)
         {
                 turnManager.PlayerList.Remove(this);   
                 gameManager.gridManager.vectorToTile(this.transform.position).unitOnTile = false;
-                Destroy(this.gameObject);
+            //Destroy(this.gameObject);
+            if (isDead == false)
+            {
+                isDead = true;
+                StartCoroutine(unitDead());
+            }
         }
         if (isEnemy == true && health <= 0)
         {
             turnManager.EnemyList.Remove(this);
             gameManager.gridManager.vectorToTile(this.transform.position).unitOnTile = false;
-            Destroy (this.gameObject);
+            if (isDead == false)
+            {
+                isDead = true;
+                StartCoroutine(unitDead());
+            }
         }
 
     }
@@ -366,21 +390,21 @@ public class Unit : MonoBehaviour
     {
         target.health -= attackDamage;
         turnManager.excuteTheBehave();
+        animator.SetTrigger("Attack");
+        //if (target.health <= 0)
+        //{
+        //    if (target.isEnemy == true)
+        //    {
+        //        turnManager.EnemyList.Remove(target);
+        //    }
+        //    if (target.isEnemy == false)
+        //    {
+        //        turnManager.PlayerList.Remove(target);
+        //    }
 
-        if (target.health <= 0)
-        {
-            if (target.isEnemy == true)
-            {
-                turnManager.EnemyList.Remove(target);
-            }
-            if (target.isEnemy == false)
-            {
-                turnManager.PlayerList.Remove(target);
-            }
-
-            Destroy(target.gameObject);
+        //    Destroy(target.gameObject);
            
-        }
+        //}
 
     }
 
@@ -606,6 +630,7 @@ public class Unit : MonoBehaviour
                 Unit nearbyUnit = hit.GetComponent<Unit>();
                 if (nearbyUnit != null && nearbyUnit.isEnemy /*&& turnManager.currentBehave == "Attack"*/) // Found an enemy nearby
                 {
+                    animator.SetTrigger("Attack");
                     Debug.Log("HIT");
                     nearbyUnit.health -= attackDamage;
                     break;
@@ -705,7 +730,6 @@ public class Unit : MonoBehaviour
     { 
         Unit nearest = null;
         int shortest = int.MaxValue;
-        Debug.Log("Enemymove4");
         for (int i = 0; i < players.Count; i++)
         {
             if (players[i] == null)
@@ -730,5 +754,12 @@ public class Unit : MonoBehaviour
     public void reLocate()
     { 
         locateTile.playerOnIt = true;
+    }
+
+    IEnumerator unitDead()
+    {
+        animator.SetTrigger("Dead");
+        yield return new WaitForSeconds(1f);
+        Destroy(this.gameObject);
     }
 }

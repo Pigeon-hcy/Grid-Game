@@ -22,17 +22,17 @@ MonoBehaviour:
   AnimatorController: {fileID: 9100000, guid: b5ebf93aac50f474cbff51994e0b6e6d, type: 2}
   diceStrings:
   - Move
-  - Move
-  - Move
   - Attack
-  - Attack
+  - Empty
+  - Move
+  - Effect
   - Effect
   diceSprites:
   - {fileID: 21300000, guid: bf2d6ed56e8bb4340887002674f73ee9, type: 3}
-  - {fileID: 21300000, guid: bf2d6ed56e8bb4340887002674f73ee9, type: 3}
-  - {fileID: 21300000, guid: bf2d6ed56e8bb4340887002674f73ee9, type: 3}
   - {fileID: 21300000, guid: 5e15b46c39490b84abf1474a15e532f4, type: 3}
-  - {fileID: 21300000, guid: 5e15b46c39490b84abf1474a15e532f4, type: 3}
+  - {fileID: 21300000, guid: a975308a8cf063d4987ff7876b6bab70, type: 3}
+  - {fileID: 21300000, guid: bf2d6ed56e8bb4340887002674f73ee9, type: 3}
+  - {fileID: 21300000, guid: 49167f0e5c7feb84986ccb35349b5840, type: 3}
   - {fileID: 21300000, guid: 49167f0e5c7feb84986ccb35349b5840, type: 3}
   effectName: Eye Beam
   effectExplain: Deals 3 damage to a unit, then deals 1 damage to nearby units.

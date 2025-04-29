@@ -23,13 +23,14 @@ public class ToolTipM : MonoBehaviour
         des.text = null; 
     }
 
-    public void changeTheDes(string Uname, Sprite Image, string Udes)
+    public void changeTheDes(string Uname, Sprite Image, string Udes,string dice)
     {
         if (Udes != null)
         {
-            string originalText = Udes;
+            string originalText = Udes + dice;
             string newText = originalText.Replace(".", ".\n");
             des.text = newText;
+
         }
         GOImage.SetActive(true);
         UIname.text = Uname;

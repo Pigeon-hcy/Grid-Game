@@ -23,14 +23,14 @@ MonoBehaviour:
   diceStrings:
   - Move
   - Move
-  - Move
+  - Charge
   - Attack
   - Attack
   - Effect
   diceSprites:
   - {fileID: 21300000, guid: bf2d6ed56e8bb4340887002674f73ee9, type: 3}
   - {fileID: 21300000, guid: bf2d6ed56e8bb4340887002674f73ee9, type: 3}
-  - {fileID: 21300000, guid: bf2d6ed56e8bb4340887002674f73ee9, type: 3}
+  - {fileID: 21300000, guid: 37d03c4c3387e0d49baf61fcbc944a01, type: 3}
   - {fileID: 21300000, guid: 5e15b46c39490b84abf1474a15e532f4, type: 3}
   - {fileID: 21300000, guid: 5e15b46c39490b84abf1474a15e532f4, type: 3}
   - {fileID: 21300000, guid: 49167f0e5c7feb84986ccb35349b5840, type: 3}

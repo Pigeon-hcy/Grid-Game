@@ -344,7 +344,6 @@ public class GridManager : MonoBehaviour
     //Show the where is the avaliable block
     private List<AStarNode> RetracePath(AStarNode startNode, AStarNode endNode, int actionPoint)
     {
-        Debug.Log("actionPoint = " + actionPoint);
 
         // Create an empty list to store the path
         List<AStarNode> path = new List<AStarNode>();
