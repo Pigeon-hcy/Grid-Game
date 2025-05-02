@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using TMPro;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
@@ -61,10 +63,20 @@ public class Unit : MonoBehaviour
     [SerializeField]
     GameObject player;
 
-    private void Start()
+    [Header("Change Text")]
+    int lastHealth;
+    int nowHealth;
+    [SerializeField]
+    GameObject DamageText_Prefab;
+
+    private void Awake()
     {
         
-        
+    }
+
+    private void Start()
+    {
+
         animator = GetComponentInChildren<Animator>();
         animator.runtimeAnimatorController = newUnit.AnimatorController;
         locateTile.unitOnTile = true;
@@ -77,6 +89,7 @@ public class Unit : MonoBehaviour
         Name = newUnit.UnitName;
         movement = newUnit.Movement;
         health = newUnit.Health;
+        lastHealth = health;
         maxHealth = newUnit.Health;
         attackRange = newUnit.AttackRange;
         attackDamage = newUnit.Attack;
@@ -133,6 +146,19 @@ public class Unit : MonoBehaviour
 
     }
 
+    private void FixedUpdate()
+    {
+        if (lastHealth != health)
+        {
+            Debug.Log("HEALTH CHANGE");
+            int damage;
+            damage = lastHealth - health;
+            showText(damage);
+            lastHealth = health;
+        }
+
+    }
+
     public void useEffect()
     {
         switch (effectName)
@@ -141,97 +167,97 @@ public class Unit : MonoBehaviour
             case "Revenge":
                 (listOfAbility[0] as unitAbility)?.useEffect(this);
                 turnManager.excuteTheBehave();
-                Debug.Log("Revenge");
+                showText("Revenge");
                 break;
 
             case "Wild Grow":
                 (listOfAbility[1] as unitAbility)?.useEffect(this);
                 turnManager.excuteTheBehave();
-                Debug.Log("Wild Grow");
+                showText("Wild Grow");
                 break;
 
             case "FireUp":
                 (listOfAbility[2] as unitAbility)?.useEffect(this);
                 turnManager.excuteTheBehave();
-                Debug.Log("FireUp");
+                showText("FireUp");
                 break;
 
             case "Slime Storm":
                 (listOfAbility[3] as unitAbility)?.useEffect(this);
                 turnManager.excuteTheBehave();
-                Debug.Log("Slime Storm");
+                showText("Slime Storm");
                 break;
 
             case "Slag Storm":
                 (listOfAbility[4] as unitAbility)?.useEffect(this);
                 turnManager.excuteTheBehave();
-                Debug.Log("Slag Storm");
+                showText("Slag Storm");
                 break;
 
             case "Earth Shield":
                 (listOfAbility[5] as unitAbility)?.useEffect(this);
                 turnManager.excuteTheBehave();
-                Debug.Log("Earth Shield");
+                showText("Earth Shield");
                 break;
 
             case "Ice nova":
                 (listOfAbility[6] as unitAbility)?.useEffect(this);
                 turnManager.excuteTheBehave();
-                Debug.Log("Ice nova");
+                showText("Ice nova");
                 break;
 
             case "Reroll":
                 (listOfAbility[7] as unitAbility)?.useEffect(this);
                 turnManager.excuteTheBehave();
-                Debug.Log("Reroll");
+                showText("Reroll");
                 break;
 
             case "Heart of Wild":
                 (listOfAbility[8] as unitAbility)?.useEffect(this);
                 turnManager.excuteTheBehave();
-                Debug.Log("Heart of Wild");
+                showText("Heart of Wild");
                 break;
 
 
             case "Anger":
                 (listOfAbility[9] as unitAbility)?.useEffect(this);
                 turnManager.excuteTheBehave();
-                Debug.Log("Anger");
+                showText("Anger");
                 break;
 
 
             case "WindBlow":
                 (listOfAbility[10] as unitAbility)?.useEffect(this);
                 turnManager.excuteTheBehave();
-                Debug.Log("WindBlow");
+                showText("WindBlow");
                 break;
 
             case "Charge":
                 (listOfAbility[11] as unitAbility)?.useEffect(this);
                 turnManager.excuteTheBehave();
-                Debug.Log("Charge");
+                showText("Charge");
                 break;
 
             case "Pull":
                 (listOfAbility[12] as unitAbility)?.useEffect(this);
                 turnManager.excuteTheBehave();
-                Debug.Log("Pull");
+                showText("Pull");
                 break;
 
             case "Push":
                 (listOfAbility[13] as unitAbility)?.useEffect(this);
                 turnManager.excuteTheBehave();
-                Debug.Log("Push");
+                showText("Push");
                 break;
 
             case "Eye Beam":
                 (listOfAbility[14] as unitAbility)?.useEffect(this);
                 turnManager.excuteTheBehave();
-                Debug.Log("Eye Beam");
+                showText("Eye Beam");
                 break;
             default:
                 turnManager.excuteTheBehave();
-                Debug.Log("No Skill");
+                showText("No Skill");
                 break;
         }
     }
@@ -761,5 +787,32 @@ public class Unit : MonoBehaviour
         animator.SetTrigger("Dead");
         yield return new WaitForSeconds(1f);
         Destroy(this.gameObject);
+    }
+
+    public void showText(int damage)
+    {
+        if (damage < 0)
+        {
+            GameObject damageText = Instantiate(DamageText_Prefab, new Vector3(transform.position.x, transform.position.y - 1.8f, transform.position.z), quaternion.identity);
+            damageText.GetComponent<TextMeshPro>().text = Mathf.Abs(damage).ToString();
+            damageText.GetComponent<TextMeshPro>().color = Color.green;
+
+        }
+        else if (damage > 0)
+        {
+            GameObject damageText = Instantiate(DamageText_Prefab, new Vector3(transform.position.x, transform.position.y - 1.8f, transform.position.z), quaternion.identity);
+            damageText.GetComponent<TextMeshPro>().text = Mathf.Abs(damage).ToString();
+            damageText.GetComponent<TextMeshPro>().color = Color.red;
+        }
+    }
+
+    public void showText(string text)
+    {
+       
+        GameObject damageText = Instantiate(DamageText_Prefab, new Vector3(transform.position.x, transform.position.y - 1.8f, transform.position.z), quaternion.identity);
+        damageText.GetComponent<TextMeshPro>().text = text;
+        damageText.GetComponent<TextMeshPro>().color = Color.cyan;
+
+
     }
 }

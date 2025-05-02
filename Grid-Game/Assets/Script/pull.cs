@@ -74,7 +74,7 @@ public class pull : ScriptableObject, unitAbility
 
                         tempLocate = nextLocate;
                         target.turnManager.EnemyList[i].turnManager.EnemyList[i].gameManager.gridManager.vectorToTile(tempLocate).available = true;
-                        target.turnManager.EnemyList[i].MoveTo(target.turnManager.EnemyList[i].gameManager.gridManager.vectorToTile(tempLocate));
+                        target.turnManager.EnemyList[i].enemyMoveToEffect(target.turnManager.EnemyList[i].gameManager.gridManager.vectorToTile(tempLocate));
                     }
 
                 }

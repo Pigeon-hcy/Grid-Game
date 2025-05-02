@@ -51,6 +51,8 @@ public class TurnManager : MonoBehaviour
     string RestartScreenName;
     
     UnitLoader UnitLoader;
+    [SerializeField]
+    bool isenemyFinish = false;
 
 
     // Start is called before the first frame update
@@ -126,7 +128,7 @@ public class TurnManager : MonoBehaviour
                     break;
                 case gameStage.enemyTurn:
 
-                    
+                    isenemyFinish = false;
                     enemyThinkMove();
                     if (passToPlayerOrEndTheTurn() == true)
                     {
@@ -239,8 +241,10 @@ public class TurnManager : MonoBehaviour
 
                 for (int j = 0; j < EnemyDice.Length; j++)
                 {
-                    if (EnemyDice[j].behave == "Charge" && EnemyDice[j].isUsed == false)// have attack relate dice
+                    if (EnemyDice[j].behave == "Charge" && EnemyDice[j].isUsed == false && isenemyFinish == false)// have attack relate dice
                     {
+
+                        isenemyFinish = true;
                         Debug.Log("Enemy try to charge");
                         bool isCharing = true;
                         int randomIndex;
@@ -278,8 +282,9 @@ public class TurnManager : MonoBehaviour
                 {
                     for (int j = 0; j < EnemyDice.Length; j++)
                     {
-                        if (EnemyDice[j].behave == "Attack" && EnemyDice[j].isUsed == false)// have attack relate dice
+                        if (EnemyDice[j].behave == "Attack" && EnemyDice[j].isUsed == false && isenemyFinish == false)// have attack relate dice
                         {
+                            isenemyFinish = true;
                             EnemyList[i].drawAttackRange();
                             Debug.Log("Enemy try to attack");
                             int targetIndex = 0;
@@ -308,8 +313,9 @@ public class TurnManager : MonoBehaviour
                 {
                     for (int j = 0; j < EnemyDice.Length; j++)
                     {
-                        if (EnemyDice[j].behave == "Move" && EnemyDice[j].isUsed == false)// have attack relate dice
+                        if (EnemyDice[j].behave == "Move" && EnemyDice[j].isUsed == false && isenemyFinish == false)// have attack relate dice
                         {
+                            isenemyFinish = true;
                             while (true)
                             {
                                 int randomEnemy = Random.Range(0, EnemyList.Count - 1);
@@ -334,8 +340,10 @@ public class TurnManager : MonoBehaviour
                     /////////////////////////////Effect/////////////////////////////////
                     for (int j = 0; j < EnemyDice.Length; j++)
                     {
-                        if (EnemyDice[j].behave == "Effect" && EnemyDice[j].isUsed == false)// have attack relate dice
+                        if (EnemyDice[j].behave == "Effect" && EnemyDice[j].isUsed == false && isenemyFinish == false)// have attack relate dice
                         {
+                            isenemyFinish = true;
+                            EnemyDice[j].isUsed = true;
                             int randomEnemy = Random.Range(0, EnemyList.Count - 1);
                             if (EnemyList[randomEnemy] == null)
                             {
@@ -344,12 +352,11 @@ public class TurnManager : MonoBehaviour
                             else
                             {
                                 EnemyList[randomEnemy].useEffect();
-
+                                EnemyDice[j].isUsed = true;
                                 break;
                             }
 
 
-                            EnemyDice[j].isUsed = true;
                             Debug.Log("Return" + i);
                             return;
                         }
@@ -359,8 +366,9 @@ public class TurnManager : MonoBehaviour
                     //////////////////////////////SKIP//////////////////////////////////////////
                     for (int j = 0; j < EnemyDice.Length; j++)
                     {
-                        if (EnemyDice[j].behave == "Empty" && EnemyDice[j].isUsed == false)// have attack relate dice
+                        if (EnemyDice[j].behave == "Empty" && EnemyDice[j].isUsed == false && isenemyFinish == false)// have attack relate dice
                         {
+                            isenemyFinish = true;
                             Debug.Log("skip");
                             EnemyDice[j].isUsed = true;
                             return;
@@ -372,8 +380,9 @@ public class TurnManager : MonoBehaviour
 
                     for (int j = 0; j < EnemyDice.Length; j++)
                     {
-                        if (EnemyDice[j].isUsed == false && EnemyDice[j].behave != "Effect")// have attack relate dice
+                        if (EnemyDice[j].isUsed == false && EnemyDice[j].behave != "Effect" && isenemyFinish == false)// have attack relate dice
                         {
+                            isenemyFinish = true;
                             Debug.Log("skip");
                             EnemyDice[j].isUsed = true;
                             return;
@@ -422,6 +431,7 @@ public class TurnManager : MonoBehaviour
 
     private IEnumerator checkChargeAttack(int randomIndex, int diceIndex )
     {
+        
         yield return new WaitForSeconds(1.5f);
         if (EnemyList[randomIndex].CheckForPlayer(1) == true && EnemyList[randomIndex].isMoving == false)
         {

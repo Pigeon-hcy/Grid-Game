@@ -82,8 +82,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 82c7bd244006cb04a9208ea36684d461, type: 2}
   EffectExplain: 
   animator: {fileID: 6803388949676674959}
+  isDead: 0
   enemy: {fileID: 8995538112626647256}
   player: {fileID: 821911568147809375}
+  DamageText_Prefab: {fileID: 5894137624932963376, guid: 22ac9a33426e10746b9f30073eaff69c, type: 3}
 --- !u!61 &1783263188329111973
 BoxCollider2D:
   m_ObjectHideFlags: 0

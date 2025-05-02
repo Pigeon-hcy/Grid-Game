@@ -6152,8 +6152,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 309651ccbb72f254c8e25d6ee4d90f73, type: 2}
+  m_sharedMaterial: {fileID: -3310033256128292059, guid: 309651ccbb72f254c8e25d6ee4d90f73, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8242,8 +8242,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Skip Dice
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 309651ccbb72f254c8e25d6ee4d90f73, type: 2}
+  m_sharedMaterial: {fileID: -3310033256128292059, guid: 309651ccbb72f254c8e25d6ee4d90f73, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8306,7 +8306,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1298956173
@@ -8611,6 +8611,7 @@ MonoBehaviour:
   gridManager: {fileID: 1759195099}
   turnManager: {fileID: 1426587584}
   gameManager: {fileID: 1380054815}
+  isChoosingATarget: 0
 --- !u!4 &1380054816
 Transform:
   m_ObjectHideFlags: 0
@@ -8756,6 +8757,7 @@ MonoBehaviour:
   text: {fileID: 785106014}
   gridManager: {fileID: 1759195099}
   RestartScreenName: 
+  isenemyFinish: 0
 --- !u!4 &1426587585
 Transform:
   m_ObjectHideFlags: 0

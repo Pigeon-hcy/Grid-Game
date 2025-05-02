@@ -41,7 +41,30 @@ public class push : ScriptableObject, unitAbility
         }
         else if (target.isEnemy == true)
         {
+            Vector3 dir = Vector3.left;
+            for (int i = 0; i < target.turnManager.PlayerList.Count; i++)
+            {
+                tempLocate = target.turnManager.PlayerList[i].transform.position;
+                for (int j = 0; j < distance; j++)
+                {
 
+                    if (target.gameManager.gridManager.vectorToTile(tempLocate).x == 0)
+                    {
+                        Debug.Log("break by grild Limit");
+                        break;
+                    }
+                    Vector3 nextLocate = tempLocate + Vector3.left;
+                    if (target.turnManager.PlayerList[i].gameManager.gridManager.vectorToTile(nextLocate).unitOnTile == true)
+                    {
+                        Debug.Log("break by enemy");
+                        break;
+                    }
+                    tempLocate = nextLocate;
+                    target.turnManager.PlayerList[i].EffectMoveTo(target.turnManager.PlayerList[i].gameManager.gridManager.vectorToTile(tempLocate));
+                }
+
+
+            }
         }
     }
 }
