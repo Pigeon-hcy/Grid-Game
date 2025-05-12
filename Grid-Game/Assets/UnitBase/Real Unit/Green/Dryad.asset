@@ -28,11 +28,11 @@ MonoBehaviour:
   - Attack
   - Effect
   diceSprites:
-  - {fileID: 21300000, guid: bf2d6ed56e8bb4340887002674f73ee9, type: 3}
-  - {fileID: 21300000, guid: bf2d6ed56e8bb4340887002674f73ee9, type: 3}
-  - {fileID: 21300000, guid: 37d03c4c3387e0d49baf61fcbc944a01, type: 3}
-  - {fileID: 21300000, guid: 5e15b46c39490b84abf1474a15e532f4, type: 3}
-  - {fileID: 21300000, guid: 5e15b46c39490b84abf1474a15e532f4, type: 3}
-  - {fileID: 21300000, guid: 49167f0e5c7feb84986ccb35349b5840, type: 3}
+  - {fileID: 21300000, guid: f0c44104916ca234da3ff2590d8a5d13, type: 3}
+  - {fileID: 21300000, guid: f0c44104916ca234da3ff2590d8a5d13, type: 3}
+  - {fileID: 21300000, guid: 207f9dcbe2f255845822edb0d54db71a, type: 3}
+  - {fileID: 21300000, guid: 0bd148ac51e6849489739012386b91a4, type: 3}
+  - {fileID: 21300000, guid: 0bd148ac51e6849489739012386b91a4, type: 3}
+  - {fileID: 21300000, guid: ed3f405b860796f4690606e2b41d5f53, type: 3}
   effectName: Pull
   effectExplain: Push a unit up to two tile to the right

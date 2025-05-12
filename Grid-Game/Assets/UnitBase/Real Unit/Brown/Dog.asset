@@ -28,11 +28,11 @@ MonoBehaviour:
   - Move
   - Move
   diceSprites:
-  - {fileID: 21300000, guid: 5e15b46c39490b84abf1474a15e532f4, type: 3}
-  - {fileID: 21300000, guid: 37d03c4c3387e0d49baf61fcbc944a01, type: 3}
-  - {fileID: 21300000, guid: 37d03c4c3387e0d49baf61fcbc944a01, type: 3}
-  - {fileID: 21300000, guid: 5e15b46c39490b84abf1474a15e532f4, type: 3}
-  - {fileID: 21300000, guid: bf2d6ed56e8bb4340887002674f73ee9, type: 3}
-  - {fileID: 21300000, guid: bf2d6ed56e8bb4340887002674f73ee9, type: 3}
+  - {fileID: 21300000, guid: 8ef5a614101aec14cb04946bc47601e0, type: 3}
+  - {fileID: 21300000, guid: 935dae30ea1412348a512a86de34b0eb, type: 3}
+  - {fileID: 21300000, guid: 935dae30ea1412348a512a86de34b0eb, type: 3}
+  - {fileID: 21300000, guid: 8ef5a614101aec14cb04946bc47601e0, type: 3}
+  - {fileID: 21300000, guid: ce9f5979f7a6169408359a254d838998, type: 3}
+  - {fileID: 21300000, guid: ce9f5979f7a6169408359a254d838998, type: 3}
   effectName: Charge
   effectExplain: Dash forward, dealing 3 damage to the first enemy touched

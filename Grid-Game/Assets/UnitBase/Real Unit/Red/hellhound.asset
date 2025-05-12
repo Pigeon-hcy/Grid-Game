@@ -16,7 +16,7 @@ MonoBehaviour:
   Health: 10
   Movement: 3
   AttackRange: 1
-  Attack: 6
+  Attack: 5
   Sprite: {fileID: 21300000, guid: f2ed27d6c1c3ccc48959bcca269d88f0, type: 3}
   EnemySprite: {fileID: 21300014, guid: f2ed27d6c1c3ccc48959bcca269d88f0, type: 3}
   AnimatorController: {fileID: 9100000, guid: 1da691f4a3f019243be18d30611a07b6, type: 2}
@@ -28,11 +28,11 @@ MonoBehaviour:
   - Charge
   - Effect
   diceSprites:
-  - {fileID: 21300000, guid: bf2d6ed56e8bb4340887002674f73ee9, type: 3}
-  - {fileID: 21300000, guid: bf2d6ed56e8bb4340887002674f73ee9, type: 3}
-  - {fileID: 21300000, guid: 5e15b46c39490b84abf1474a15e532f4, type: 3}
-  - {fileID: 21300000, guid: 5e15b46c39490b84abf1474a15e532f4, type: 3}
-  - {fileID: 21300000, guid: 37d03c4c3387e0d49baf61fcbc944a01, type: 3}
-  - {fileID: 21300000, guid: 49167f0e5c7feb84986ccb35349b5840, type: 3}
+  - {fileID: 21300000, guid: 53b5cfe6a3a7ae24187afb6ae33f35cb, type: 3}
+  - {fileID: 21300000, guid: 53b5cfe6a3a7ae24187afb6ae33f35cb, type: 3}
+  - {fileID: 21300000, guid: 280b37aa6c07f2a49a3e56e66ff3695b, type: 3}
+  - {fileID: 21300000, guid: 280b37aa6c07f2a49a3e56e66ff3695b, type: 3}
+  - {fileID: 21300000, guid: 7353fb5f9d39de548a8a3cefa174b0d7, type: 3}
+  - {fileID: 21300000, guid: 3756a27526765b148b0e28611aa6b61b, type: 3}
   effectName: Anger
   effectExplain: Deal (10 - health) damage to an enemy

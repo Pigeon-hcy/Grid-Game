@@ -54,7 +54,12 @@ public class TurnManager : MonoBehaviour
     [SerializeField]
     bool isenemyFinish = false;
 
-
+    [SerializeField]
+    AudioSource diceThrowSoundEffect;
+    [SerializeField]
+    AudioSource skipSoundEffect;
+    [SerializeField]
+    GameObject gameover;
     // Start is called before the first frame update
     void Start()
     {
@@ -72,10 +77,9 @@ public class TurnManager : MonoBehaviour
 
         if (EnemyList.Count == 0 || PlayerList.Count == 0)
         {
-            UnitLoader.Instance.Playersunits.Clear();
-            UnitLoader.Instance.gameStart = false;
-            SceneManager.LoadScene(0);
-            
+            StartCoroutine(GameOver());
+
+
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -96,6 +100,7 @@ public class TurnManager : MonoBehaviour
                 case gameStage.turnStart:
                     Debug.Log("TurnStart");
                     ////////////////////////////////////////
+                    diceThrowSoundEffect.Play();
                     Debug.Log("PlayerRollDice");
                     PlayerRollDice();
                     EnemyRollDice();
@@ -371,6 +376,7 @@ public class TurnManager : MonoBehaviour
                             isenemyFinish = true;
                             Debug.Log("skip");
                             EnemyDice[j].isUsed = true;
+                            skipSoundEffect.Play();
                             return;
                         }
                     }
@@ -383,6 +389,7 @@ public class TurnManager : MonoBehaviour
                         if (EnemyDice[j].isUsed == false && EnemyDice[j].behave != "Effect" && isenemyFinish == false)// have attack relate dice
                         {
                             isenemyFinish = true;
+                            skipSoundEffect.Play();
                             Debug.Log("skip");
                             EnemyDice[j].isUsed = true;
                             return;
@@ -462,5 +469,14 @@ public class TurnManager : MonoBehaviour
             yield break;
 
         }
+    }
+
+    IEnumerator GameOver()
+    {
+        gameover.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        UnitLoader.Instance.Playersunits.Clear();
+        UnitLoader.Instance.gameStart = false;
+        SceneManager.LoadScene(0);
     }
 }

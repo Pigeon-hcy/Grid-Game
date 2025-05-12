@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Fire
   m_EditorClassIdentifier: 
   UnitName: Fire Element
-  Health: 22
-  Movement: 2
-  AttackRange: 1
-  Attack: 2
+  Health: 32
+  Movement: 3
+  AttackRange: 2
+  Attack: 1
   Sprite: {fileID: 21300000, guid: f2ed27d6c1c3ccc48959bcca269d88f0, type: 3}
   EnemySprite: {fileID: 21300014, guid: f2ed27d6c1c3ccc48959bcca269d88f0, type: 3}
   AnimatorController: {fileID: 9100000, guid: 2bfb8f335e6e92248b8cf686cfb624b9, type: 2}
@@ -28,11 +28,11 @@ MonoBehaviour:
   - Charge
   - Effect
   diceSprites:
-  - {fileID: 21300000, guid: 5e15b46c39490b84abf1474a15e532f4, type: 3}
-  - {fileID: 21300000, guid: 5e15b46c39490b84abf1474a15e532f4, type: 3}
-  - {fileID: 21300000, guid: a975308a8cf063d4987ff7876b6bab70, type: 3}
-  - {fileID: 21300000, guid: bf2d6ed56e8bb4340887002674f73ee9, type: 3}
-  - {fileID: 21300000, guid: 37d03c4c3387e0d49baf61fcbc944a01, type: 3}
-  - {fileID: 21300000, guid: 49167f0e5c7feb84986ccb35349b5840, type: 3}
+  - {fileID: 21300000, guid: 194aa97f8f03a1e4aba79044d091cf4e, type: 3}
+  - {fileID: 21300000, guid: 194aa97f8f03a1e4aba79044d091cf4e, type: 3}
+  - {fileID: 21300000, guid: ebe8c80c73d0fd04a8f7c3578e63057f, type: 3}
+  - {fileID: 21300000, guid: f80f2a4ae77434f4584939fb53f16810, type: 3}
+  - {fileID: 21300000, guid: af31da429b427b940a554d2550f479c6, type: 3}
+  - {fileID: 21300000, guid: 3ca73d2e63401be4fb9cf1c76a60e8fd, type: 3}
   effectName: Revenge
   effectExplain: Attack becomes (dead unit)/2 + 1

@@ -29,7 +29,8 @@ public class Unit : MonoBehaviour
     GridManager gridManager;
     [SerializeField]
     public TurnManager turnManager;
-
+    [SerializeField]
+    AudioSource walkSound;
     [Header("Combat")]
     [SerializeField]
     public int health;
@@ -37,6 +38,8 @@ public class Unit : MonoBehaviour
     public int attackRange;
     [SerializeField]
     public int attackDamage;
+    [SerializeField]
+    AudioSource takeDamage;
 
     [SerializeField]
     public List<Unit> nearByPlayer = new List<Unit>();
@@ -50,6 +53,8 @@ public class Unit : MonoBehaviour
     [SerializeField] List<ScriptableObject> listOfAbility = new List<ScriptableObject>();
     string effectName;
     public string EffectExplain;
+    [SerializeField]
+    AudioSource effectClip;
 
     [Header("Animator")]
     [SerializeField]
@@ -276,6 +281,7 @@ public class Unit : MonoBehaviour
             StartCoroutine(MovePlayer(target.transform.position));
             gridManager.ResetTile();
             turnManager.excuteTheBehave();
+            walkSound.Play();
         }
         else
         {
@@ -296,6 +302,7 @@ public class Unit : MonoBehaviour
             target.playerOnIt = true;
             StartCoroutine(MovePlayer(target.transform.position));
             gridManager.ResetTile();
+            walkSound.Play();
         }
         else
         {
@@ -313,6 +320,7 @@ public class Unit : MonoBehaviour
             //move the unit
             target.unitOnTile = true;
             StartCoroutine(MovePlayer(target.transform.position));
+            walkSound.Play();
         }
         else
         {
@@ -325,7 +333,7 @@ public class Unit : MonoBehaviour
     {
         if (target.unitOnTile == false && target.available == true && isEnemy == false && isMoving == false)
         {
-
+            walkSound.Play();
             locateTile.unitOnTile = false;
             locateTile = target;
             locateTile.playerOnIt = false;
@@ -380,6 +388,7 @@ public class Unit : MonoBehaviour
                     if (path != null && path.Count > 0)
                     {
                         StartCoroutine(followPath(path));
+                        walkSound.Play();
                     }
                 }
             }
@@ -601,7 +610,7 @@ public class Unit : MonoBehaviour
         }
 
         transform.position = targetPos;
-
+                                walkSound.Play();
         //CheckForEnemies(attackRange);
         isMoving = false;
     }
@@ -800,6 +809,7 @@ public class Unit : MonoBehaviour
         }
         else if (damage > 0)
         {
+            takeDamage.Play();
             GameObject damageText = Instantiate(DamageText_Prefab, new Vector3(transform.position.x, transform.position.y - 1.8f, transform.position.z), quaternion.identity);
             damageText.GetComponent<TextMeshPro>().text = Mathf.Abs(damage).ToString();
             damageText.GetComponent<TextMeshPro>().color = Color.red;
@@ -808,7 +818,7 @@ public class Unit : MonoBehaviour
 
     public void showText(string text)
     {
-       
+        effectClip.Play();
         GameObject damageText = Instantiate(DamageText_Prefab, new Vector3(transform.position.x, transform.position.y - 1.8f, transform.position.z), quaternion.identity);
         damageText.GetComponent<TextMeshPro>().text = text;
         damageText.GetComponent<TextMeshPro>().color = Color.cyan;
