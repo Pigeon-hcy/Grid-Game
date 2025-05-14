@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("SHow");
                 RaycastHit2D closestHit = hit.OrderBy(h => Vector2.Distance(h.point, mousePosition)).First();
-                Unit clickedUnit = closestHit.collider.GetComponent<Unit>();
+                Unit clickedUnit = hit.Select(h => h.collider.GetComponent<Unit>()).FirstOrDefault(u => u != null);
                 toolTipManagert.Instance.setAndShow(clickedUnit.Name, clickedUnit.maxHealth, clickedUnit.health, clickedUnit.movement, clickedUnit.attackDamage, clickedUnit.attackRange, clickedUnit.EffectExplain);
                 showPannel = true;
             }
@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
             {
                 RaycastHit2D closestHit = hit.OrderBy(h => Vector2.Distance(h.point, mousePosition)).First();
                 Tile targetTile = closestHit.collider.GetComponent<Tile>();
-                Unit clickedUnit = closestHit.collider.GetComponent<Unit>();
+                Unit clickedUnit = hit.Select(h => h.collider.GetComponent<Unit>()).FirstOrDefault(u => u != null);
 
                 ///////////////////////////Move////////////////////////////////
                 if (targetTile != null && selectedUnit != null)

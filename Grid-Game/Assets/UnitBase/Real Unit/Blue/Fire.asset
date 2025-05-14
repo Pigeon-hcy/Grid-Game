@@ -35,4 +35,4 @@ MonoBehaviour:
   - {fileID: 21300000, guid: af31da429b427b940a554d2550f479c6, type: 3}
   - {fileID: 21300000, guid: 3ca73d2e63401be4fb9cf1c76a60e8fd, type: 3}
   effectName: Revenge
-  effectExplain: Attack becomes (dead unit)/2 + 1
+  effectExplain: Attack increase by (dead unit)/2 + 1

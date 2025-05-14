@@ -254,11 +254,11 @@ public class TurnManager : MonoBehaviour
                         bool isCharing = true;
                         int randomIndex;
 
-                            int randomEnemy = Random.Range(0, EnemyList.Count - 1);
+                            int randomEnemy = Random.Range(0, EnemyList.Count );
                             randomIndex = randomEnemy;
                             if (EnemyList[randomEnemy] == null)
                             {
-                                randomEnemy = Random.Range(0, EnemyList.Count - 1);
+                                randomEnemy = Random.Range(0, EnemyList.Count);
                                 Debug.Log("refind");
                             }
                             else
@@ -323,10 +323,10 @@ public class TurnManager : MonoBehaviour
                             isenemyFinish = true;
                             while (true)
                             {
-                                int randomEnemy = Random.Range(0, EnemyList.Count - 1);
+                                int randomEnemy = Random.Range(0, EnemyList.Count);
                                 if (EnemyList[randomEnemy] == null)
                                 {
-                                    randomEnemy = Random.Range(0, EnemyList.Count - 1);
+                                    randomEnemy = Random.Range(0, EnemyList.Count);
                                 }
                                 else
                                 {
@@ -349,10 +349,10 @@ public class TurnManager : MonoBehaviour
                         {
                             isenemyFinish = true;
                             EnemyDice[j].isUsed = true;
-                            int randomEnemy = Random.Range(0, EnemyList.Count - 1);
+                            int randomEnemy = Random.Range(0, EnemyList.Count );
                             if (EnemyList[randomEnemy] == null)
                             {
-                                randomEnemy = Random.Range(0, EnemyList.Count - 1);
+                                randomEnemy = Random.Range(0, EnemyList.Count );
                             }
                             else
                             {
@@ -425,13 +425,13 @@ public class TurnManager : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < EnemyDice.Length; i++)
-        {
-            if (!EnemyDice[i].isUsed)
-            {
-                return false;
-            }
-        }
+        //for (int i = 0; i < EnemyDice.Length; i++)
+        //{
+        //    if (!EnemyDice[i].isUsed)
+        //    {
+        //        return false;
+        //    }
+        //}
 
         return true;    
     }

@@ -6638,7 +6638,7 @@ MonoBehaviour:
   image: {fileID: 3234629978573100161, guid: 0d15e7bc593e44feb8962e74bfec7ea4, type: 3}
   Unit_name: Fire Element
   description: 'Health: 32. Attack: 1. Range: 2. Movement: 3. Ability: Fire up -
-    Change Attack to (died unit)/2+1.'
+    Increase Attack by (died unit)/2+1.'
   dice: Attack/Attack/Empty/Move/Charge/Effect
 --- !u!82 &1525508337
 AudioSource:
